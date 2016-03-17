@@ -105,6 +105,9 @@
 		A6BD1BE11C9B3AE000EC899A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				KnownAssetTags = (
+					10,
+				);
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "Brandon Gress";
 				TargetAttributes = {
@@ -299,6 +302,7 @@
 				A6BD1C021C9B3AE000EC899A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

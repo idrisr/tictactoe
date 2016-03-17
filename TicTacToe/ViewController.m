@@ -9,7 +9,6 @@
 #import "ViewController.h"
 
 @interface ViewController ()
-
 @property (weak, nonatomic) IBOutlet UIButton *button1;
 @property (weak, nonatomic) IBOutlet UIButton *button2;
 @property (weak, nonatomic) IBOutlet UIButton *button3;
@@ -21,6 +20,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *button9;
 @property (weak, nonatomic) IBOutlet UILabel *whichPlayerLabel;
 @property NSUInteger turnIndex;
+@property NSString *boardState;       // 0 for "O", 1 for "X", undefined if not yet played
+@property NSString *playerTurn;
 
 @end
 
@@ -29,37 +30,45 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.turnIndex = 0;
+    self.boardState = [@"" stringByPaddingToLength:9 withString: @" " startingAtIndex:0];
     self.whichPlayerLabel.font = [UIFont systemFontOfSize:25];
-
-    
+    self.playerTurn = @"X";
 }
 
--(IBAction) onButtonTapped:(UIButton*)button {
-    self.turnIndex++;
-
-    if (self.turnIndex % 2 == 0) {
-        self.whichPlayerLabel.text = @"O";
-        self.whichPlayerLabel.textColor = [UIColor redColor];
+-(void) togglePlayerTurn {
+    if ([self.playerTurn isEqualToString:@"X"]) {
+        self.playerTurn = @"O";
     } else {
-        self.whichPlayerLabel.text = @"X";
-        self.whichPlayerLabel.textColor = [UIColor blueColor];
+        self.playerTurn = @"X";
     }
 }
 
--(void) toggleTurnIndicator {
-    //    NSString *currentTurnLabel = self.whichPlayerLabel.text;
+-(IBAction) onButtonTapped:(UIButton*)button {
+    NSInteger tag = button.tag;
+    NSInteger index = tag / 10 - 1;
+    NSString *currentValue = [button.titleLabel.text substringWithRange:NSMakeRange(index, 1)];
+
+    // check if button is blank to proceed
+    if (!currentValue) {
+        [button setTitle:self.playerTurn forState:UIControlStateNormal];
+        [self togglePlayerTurn];
+    } else {
+        // TODO: give user feedback
+    }
 }
 
-//-(void) toggleButtonText:(UIButton*)button {
-//    if ([button.titleLabel.text isEqualToString:@"X"]) {
-//        // make label O
-//        [button setTitle:@"O" forState:UIControlStateNormal];
-//        button.textColor = [UIColor redColor];
-//    } else {
-//        // make label X
-//        [button setTitle:@"X" forState:UIControlStateNormal];
-//        button.textColor = [UIColor blueColor];
-//    }
-//}
+- (IBAction)winner:(UIButton *)sender {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Winner!"
+                                                                             message:@"Someone Won!"
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"cancel"
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:nil];
+
+    [alertController addAction:cancelAction];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
 
 @end
