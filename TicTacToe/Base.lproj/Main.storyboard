@@ -106,13 +106,6 @@
                                     <rect key="frame" x="80" y="57" width="234" height="49"/>
                                 </variation>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JiW-fH-rh8">
-                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <state key="normal" title="winner"/>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="174" y="464" width="46" height="30"/>
-                                </variation>
-                            </button>
                             <button opaque="NO" tag="60" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uGN-jB-jB5">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                 <color key="backgroundColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -136,7 +129,6 @@
                                 <exclude reference="3CQ-AX-JQJ"/>
                                 <exclude reference="bHd-yu-Lqo"/>
                                 <exclude reference="Npa-dW-kGS"/>
-                                <exclude reference="JiW-fH-rh8"/>
                                 <exclude reference="uGN-jB-jB5"/>
                             </mask>
                         </variation>
@@ -151,7 +143,6 @@
                                 <include reference="3CQ-AX-JQJ"/>
                                 <include reference="bHd-yu-Lqo"/>
                                 <include reference="Npa-dW-kGS"/>
-                                <include reference="JiW-fH-rh8"/>
                                 <include reference="uGN-jB-jB5"/>
                             </mask>
                         </variation>
@@ -166,7 +157,7 @@
                         <outlet property="button7" destination="PIi-Dn-b06" id="fLH-LB-AuA"/>
                         <outlet property="button8" destination="bHd-yu-Lqo" id="ZIr-GC-FB1"/>
                         <outlet property="button9" destination="3CQ-AX-JQJ" id="bmx-K8-s02"/>
-                        <outlet property="whichPlayerLabel" destination="Npa-dW-kGS" id="v8c-gu-j7m"/>
+                        <outlet property="turnLabel" destination="Npa-dW-kGS" id="ZVX-hS-O5v"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
