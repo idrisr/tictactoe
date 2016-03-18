@@ -29,9 +29,8 @@ typedef NS_ENUM(NSInteger, GameState) {
 @property (weak, nonatomic) IBOutlet UIButton *button8;
 @property (weak, nonatomic) IBOutlet UIButton *button9;
 @property (weak, nonatomic) IBOutlet UILabel *turnLabel;
-@property NSMutableString *boardState;       // 0 for "O", 1 for "X", undefined if not yet played
+@property NSMutableString *boardState;       // 0 for "O", 1 for "X", " " if not yet played
 @property NSString *playerTurn;
-//@property NSArray* winningGameStates;
 @end
 
 @implementation ViewController
@@ -53,13 +52,27 @@ typedef NS_ENUM(NSInteger, GameState) {
     return _winningGameStates;
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
+-(void) startGame {
     NSString *startingBoardState = [@"" stringByPaddingToLength:9 withString: @" " startingAtIndex:0];
     self.boardState = [NSMutableString stringWithString:startingBoardState];
-    self.turnLabel.font = [UIFont systemFontOfSize:25];
     self.playerTurn = @"X";
     [self updateTurnLabel];
+    for (int i = 1; i < startingBoardState.length + 1; i++) {
+        NSUInteger tag = i * 10;
+        UIButton *button = (UIButton *) [self.view viewWithTag:tag];
+        [button setTitle:@" " forState:UIControlStateNormal];
+        [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    }
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self startGame];
+};
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.turnLabel.font = [UIFont systemFontOfSize:25];
 }
 
 -(void) updateTurnLabel {
@@ -80,7 +93,7 @@ typedef NS_ENUM(NSInteger, GameState) {
     NSUInteger index = tag / 10 - 1;
     NSString *currentValue = button.titleLabel.text;
 
-    if (currentValue == nil) {
+    if ([currentValue isEqualToString:@" "]) {
         // update button appearance
         [button setTitle:self.playerTurn forState:UIControlStateNormal];
         if ([self.playerTurn isEqualToString:@"X"]) {
@@ -92,7 +105,10 @@ typedef NS_ENUM(NSInteger, GameState) {
         // update game board state
         NSString *updatedBoardState =[self.boardState stringByReplacingCharactersInRange:NSMakeRange(index, 1) withString:self.playerTurn];
         self.boardState = [NSMutableString stringWithString:updatedBoardState];
-        [self didCurrentPlayerWin];
+        if ([self didCurrentPlayerWin]) {
+            [self playerWon];
+            return;
+        }
         [self togglePlayerTurn];
     } else {
         // TODO: give user feedback
@@ -116,6 +132,25 @@ typedef NS_ENUM(NSInteger, GameState) {
             win = YES;
         } }];
     return win;
+}
+
+-(void) playerWon {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@ Wins!", self.playerTurn]
+                                                                             message:@"Oustanding Victory!"
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:nil];
+
+    UIAlertAction *playAction = [UIAlertAction actionWithTitle:@"Play Again"
+                                                         style:UIAlertActionStyleDefault
+                                                       handler:^(UIAlertAction * _Nonnull action) {
+                                                           [self startGame];
+                                                       }];
+    [alertController addAction:cancelAction];
+    [alertController addAction:playAction];
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 @end
