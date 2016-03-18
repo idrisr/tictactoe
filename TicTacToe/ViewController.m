@@ -60,6 +60,10 @@ typedef NS_ENUM(NSInteger, GameState) {
     for (int i = 1; i < startingBoardState.length + 1; i++) {
         NSUInteger tag = i * 10;
         UIButton *button = (UIButton *) [self.view viewWithTag:tag];
+        button.layer.cornerRadius = 10;
+        button.layer.borderWidth = 2;
+        button.layer.borderColor = [UIColor blueColor].CGColor;
+        button.titleLabel.font = [UIFont systemFontOfSize:40];
         [button setTitle:@" " forState:UIControlStateNormal];
         [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     }
@@ -72,11 +76,16 @@ typedef NS_ENUM(NSInteger, GameState) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.turnLabel.font = [UIFont systemFontOfSize:25];
+    self.turnLabel.font = [UIFont systemFontOfSize:40];
 }
 
 -(void) updateTurnLabel {
     self.turnLabel.text = self.playerTurn;
+    if ([self.playerTurn isEqualToString:@"X"]) {
+        self.turnLabel.textColor = [UIColor redColor];
+    } else {
+        self.turnLabel.textColor = [UIColor blueColor];
+    }
 }
 
 -(void) togglePlayerTurn {
@@ -136,8 +145,8 @@ typedef NS_ENUM(NSInteger, GameState) {
 
 -(void) playerWon {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@ Wins!", self.playerTurn]
-                                                                             message:@"Oustanding Victory!"
-                                                                      preferredStyle:UIAlertControllerStyleAlert];
+                                                                             message:@""
+                                                                      preferredStyle:UIAlertControllerStyleActionSheet];
 
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
                                                            style:UIAlertActionStyleCancel
