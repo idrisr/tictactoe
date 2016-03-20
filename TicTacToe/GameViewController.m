@@ -107,8 +107,6 @@ static void *currentGameStateContext = &currentGameStateContext;
         UIButton *button = nil;
         if (doesIntersect) {
             button = [self.view viewWithTag:tagIntersect];
-        } else {
-            return;
         }
         NSArray *rowCol = [self getBoardIndexesFromButton:button];
         NSUInteger row = [[rowCol firstObject] integerValue];
