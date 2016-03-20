@@ -10,6 +10,13 @@
 #import "TicTacToeBoard.h"
 #import "NSString+ConveryToArray.h"
 
+typedef NS_ENUM (NSUInteger, ViewCorner){
+    ViewCornerTopLeft = 0,
+    ViewCornerTopRight,
+    ViewCornerBottomLeft,
+    ViewCornerBottomRight
+};
+
 @interface GameViewController () <UIGestureRecognizerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *button1;
@@ -26,6 +33,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *turnLabel;
 @property UIDynamicAnimator *animator;
 @property UISnapBehavior *snapBehavior;
+@property UIGravityBehavior *gravityBehavior;
 @property CGPoint turnLabelStartPoint;
 
 -(void) layoutBoard;
@@ -91,7 +99,7 @@ static void *currentGameStateContext = &currentGameStateContext;
 
     [self.gameEngine addObserver:self
                       forKeyPath:NSStringFromSelector(@selector(currentGameState))
-                         options:0
+                         options:NSKeyValueObservingOptionNew
                          context:currentGameStateContext];
 }
 
@@ -156,6 +164,18 @@ static void *currentGameStateContext = &currentGameStateContext;
     }
 }
 
+-(BOOL) buttonsOffScreen {
+    BOOL __block intersect = NO;
+    [self.buttonArray enumerateObjectsWithOptions:NSEnumerationConcurrent
+                                       usingBlock:^(UIButton * _Nonnull button, NSUInteger idx, BOOL * _Nonnull stop) {
+                                           intersect = CGRectIntersectsRect(self.view.frame, button.frame);
+                                           if (intersect) {
+                                               *stop = YES;
+                                           }
+                                       }];
+    return intersect;
+}
+
 -(void) checkGameStatus {
     switch (self.gameEngine.currentGameState) {
         case GameStateEmpty:
@@ -178,6 +198,7 @@ static void *currentGameStateContext = &currentGameStateContext;
 }
 
 -(void) showAlertGameOver {
+    NSLog(@"in show alert game over");
     NSString *title = nil;
     if (self.gameEngine.currentGameState == GameStateWon) {
         title = [NSString stringWithFormat:@"Player %@ Won!", self.gameEngine.playerTurn];
@@ -192,11 +213,67 @@ static void *currentGameStateContext = &currentGameStateContext;
     UIAlertAction *playAgain = [UIAlertAction actionWithTitle:@"Play Again"
                                                         style:UIAlertActionStyleDefault
                                                       handler:^(UIAlertAction * _Nonnull action) {
-                                                            [self.gameEngine restartGame];
+                                                          UIGravityBehavior *gravity = [[UIGravityBehavior alloc] initWithItems:self.buttonArray];
+                                                          UICollisionBehavior *collision = [[UICollisionBehavior alloc] initWithItems:self.buttonArray];
+
+                                                          CGPoint topLeft = [self pointForCorner:ViewCornerTopLeft forView:self.view];
+                                                          CGPoint topRight = [self pointForCorner:ViewCornerTopRight forView:self.view];
+                                                          CGPoint bottomLeft = [self pointForCorner:ViewCornerBottomLeft forView:self.view];
+                                                          CGPoint bottomRight = [self pointForCorner:ViewCornerBottomRight forView:self.view];
+                                                          [collision addBoundaryWithIdentifier:@"left" fromPoint:topLeft toPoint:bottomLeft];
+                                                          [collision addBoundaryWithIdentifier:@"bottom" fromPoint:bottomLeft toPoint:bottomRight];
+                                                          [collision addBoundaryWithIdentifier:@"right" fromPoint:topRight toPoint:bottomRight];
+                                                          [collision addBoundaryWithIdentifier:@"top" fromPoint:topLeft toPoint:topRight];
+
+                                                          CGFloat angle = M_PI * 2 * arc4random();
+                                                          CGFloat magnitude = 0.5;
+                                                          [gravity setAngle:angle magnitude:magnitude];
+                                                          [self.animator addBehavior:gravity];
+                                                          [self.animator addBehavior:collision];
+                                                          [self.buttonArray enumerateObjectsWithOptions:NSEnumerationConcurrent
+                                                                                             usingBlock:^(UIButton * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                                                                                                 [self.animator updateItemUsingCurrentState:obj];
+                                                                                             }];
+                                                          //                                                [self.gameEngine restartGame];
                                                       }];
+
     [alert addAction:playAgain];
     [self presentViewController:alert animated:YES completion:nil];
 }
+
+-(CGPoint) pointForCorner:(ViewCorner)corner
+                  forView:(UIView *) view {
+    CGFloat x = 0;
+    CGFloat y = 0;
+    CGRect rect = view.frame;
+    switch (corner) {
+        case ViewCornerTopLeft:
+            x = rect.origin.x;
+            y = rect.origin.y;
+            break;
+
+        case ViewCornerTopRight:
+            x = rect.origin.x + rect.size.width;
+            y = rect.origin.y;
+            break;
+
+        case ViewCornerBottomLeft:
+            x = rect.origin.x;
+            y = rect.origin.y + rect.size.height;
+            break;
+
+        case ViewCornerBottomRight:
+            x = rect.origin.x + rect.size.width;
+            y = rect.origin.y + rect.size.height;
+            break;
+
+        default:
+            x = 0;
+            y = 0;
+    }
+    return CGPointMake(x, y);
+}
+
 
 -(void) layoutBoard {
     self.turnLabel.text = self.gameEngine.playerTurn;

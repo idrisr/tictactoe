@@ -22,19 +22,9 @@
     self.boardSize = boardSize;
     [self restartGame];
 
-    [self addObserver:self
-           forKeyPath:NSStringFromSelector(@selector(boardState))
-              options:0
-              context:nil];
     return self;
 }
 
--(void)observeValueForKeyPath:(NSString *)keyPath
-                     ofObject:(id)object
-                       change:(NSDictionary<NSString *,id> *)change
-                      context:(void *)context {
-    [self updateCurrentGameState];
-}
 
 -(instancetype)initWithBoardSize:(NSUInteger)boardSize {
     NSUInteger squares = boardSize * boardSize;
@@ -156,10 +146,6 @@
     NSUInteger boxes = self.boardSize * self.boardSize;
     NSString *emptyBoard = [@"" stringByPaddingToLength:boxes withString: @" " startingAtIndex:0];
     return ([emptyBoard isEqualToString:self.boardState]);
-}
-
--(void)dealloc {
-    [self removeObserver:self forKeyPath:NSStringFromSelector(@selector(boardState))];
 }
 
 @end
