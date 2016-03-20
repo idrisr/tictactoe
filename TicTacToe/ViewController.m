@@ -21,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *button7;
 @property (weak, nonatomic) IBOutlet UIButton *button8;
 @property (weak, nonatomic) IBOutlet UIButton *button9;
+@property NSArray<UIButton*> *buttonArray;
 @property TicTacToeBoard *gameEngine;
 @property (weak, nonatomic) IBOutlet UILabel *turnLabel;
 
@@ -34,26 +35,74 @@ static void *currentGameStateContext = &currentGameStateContext;
 
 @implementation ViewController
 
-- (IBAction)panGesture:(id)sender {
-    NSLog(@"did pan");
-}
-
 #pragma mark - view life cycle
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self layoutBoard];
 }
 
--(void) handlePan {
-    NSLog(@"handling pan");
+-(NSInteger) buttonThatIntersectsWithView:(UIView *) view {
+    NSInteger __block buttonTag = -1;
+    [self.buttonArray enumerateObjectsWithOptions:NSEnumerationConcurrent
+                                       usingBlock:^(UIButton * _Nonnull button, NSUInteger idx, BOOL * _Nonnull stop) {
+                                           BOOL intersect = CGRectIntersectsRect(self.turnLabel.frame, button.frame);
+                                           if (intersect) {
+                                                buttonTag = button.tag;
+                                                *stop = YES;
+                                           }
+                                       }];
+    return buttonTag;
+}
+
+-(void) moveObject:(UIPanGestureRecognizer *)panGesture{
+    // if pan gesture over
+
+    if (panGesture.state == UIGestureRecognizerStateEnded) {
+        NSInteger tagIntersect = [self buttonThatIntersectsWithView:self.turnLabel] / 10;
+        UIButton *button = nil;
+        if (tagIntersect != -1 ) {
+            button = [self.view viewWithTag:tagIntersect];
+        }
+        NSArray *rowCol = [self getBoardIndexesFromButton:button];
+        NSUInteger row = [[rowCol firstObject] integerValue];
+        NSUInteger col = [[rowCol lastObject] integerValue];
+
+        BOOL canMoveToSquare = [self.gameEngine canUpdateBoardAtRow:row atColumn:col];
+
+        // if label location on one of the squares AND can update that square for current game state
+        if (canMoveToSquare && tagIntersect) {
+            // tell the board that a move was made on that square
+            [self.gameEngine updateBoardForCurrentPlayerAtRow:row atColumn:col];
+        } else {
+            // snap it back to where it was
+            [UIView animateWithDuration:0.5
+                             animations:^{
+                                 CGPoint currentSpot = [panGesture translationInView:self.view];
+                                 CGPoint oldPoint = CGPointMake(self.turnLabel.center.x - currentSpot.x, self.turnLabel.center.y - currentSpot.y);
+                                 self.turnLabel.center = oldPoint;
+                             }
+                             completion:^(BOOL finished) {
+                                 NSLog(@"snapped back");
+                             }
+             ];
+        }
+    // keep moving the label around the screen
+    } else {
+        self.turnLabel.center = [panGesture locationInView:self.turnLabel.superview];
+    }
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    self.buttonArray = @[self.button1, self.button2, self.button3,
+                         self.button4, self.button5, self.button6,
+                         self.button7, self.button8, self.button9];
+
     self.turnLabel.font = [UIFont systemFontOfSize:40];
 
     // set up pan gesture
-    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan)];
+    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(moveObject:)];
     [self.turnLabel addGestureRecognizer:panGesture];
     panGesture.delegate = self;
     [self.turnLabel setUserInteractionEnabled:YES];

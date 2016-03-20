@@ -33,6 +33,7 @@ typedef NS_OPTIONS(NSUInteger, GameState) {
 
 -(void) restartGame;
 -(void) updateBoardForCurrentPlayerAtRow:(NSUInteger) row atColumn:(NSUInteger)column; // 1 indexed for human brains
+-(BOOL) canUpdateBoardAtRow:(NSUInteger) row atColumn:(NSUInteger) column;
 -(instancetype) initWithBoardSize:(NSUInteger)boardSize boardState:(NSString *)board;
 -(instancetype) initWithBoardSize:(NSUInteger)boardSize;
 

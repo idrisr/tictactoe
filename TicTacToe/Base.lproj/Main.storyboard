@@ -80,15 +80,6 @@
                                     <action selector="onButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rfm-9Q-qbl"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" tag="90" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3CQ-AX-JQJ">
-                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="246" y="345" width="75" height="75"/>
-                                </variation>
-                                <connections>
-                                    <action selector="onButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="OFp-r4-uMB"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" tag="80" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bHd-yu-Lqo">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                 <variation key="widthClass=compact" fixedFrame="YES">
@@ -98,14 +89,23 @@
                                     <action selector="onButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="G8v-dp-AkF"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Turn" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Npa-dW-kGS">
+                            <button opaque="NO" tag="90" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3CQ-AX-JQJ">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="246" y="345" width="75" height="75"/>
+                                </variation>
+                                <connections>
+                                    <action selector="onButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="OFp-r4-uMB"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="X" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Npa-dW-kGS">
                                 <rect key="frame" x="-42" y="-21" width="42" height="21"/>
                                 <gestureRecognizers/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="80" y="57" width="234" height="49"/>
+                                    <rect key="frame" x="185" y="59" width="30" height="30"/>
                                 </variation>
                             </label>
                         </subviews>
@@ -122,8 +122,8 @@
                                 <exclude reference="7le-QK-GQc"/>
                                 <exclude reference="uGN-jB-jB5"/>
                                 <exclude reference="PIi-Dn-b06"/>
-                                <exclude reference="3CQ-AX-JQJ"/>
                                 <exclude reference="bHd-yu-Lqo"/>
+                                <exclude reference="3CQ-AX-JQJ"/>
                                 <exclude reference="Npa-dW-kGS"/>
                             </mask>
                         </variation>
@@ -136,8 +136,8 @@
                                 <include reference="7le-QK-GQc"/>
                                 <include reference="uGN-jB-jB5"/>
                                 <include reference="PIi-Dn-b06"/>
-                                <include reference="3CQ-AX-JQJ"/>
                                 <include reference="bHd-yu-Lqo"/>
+                                <include reference="3CQ-AX-JQJ"/>
                                 <include reference="Npa-dW-kGS"/>
                             </mask>
                         </variation>
