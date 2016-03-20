@@ -38,6 +38,7 @@ static void *currentGameStateContext = &currentGameStateContext;
 #pragma mark - view life cycle
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    [self updateTurnLabel];
     [self layoutBoard];
 }
 
@@ -55,13 +56,14 @@ static void *currentGameStateContext = &currentGameStateContext;
 }
 
 -(void) moveObject:(UIPanGestureRecognizer *)panGesture{
-    // if pan gesture over
-
     if (panGesture.state == UIGestureRecognizerStateEnded) {
-        NSInteger tagIntersect = [self buttonThatIntersectsWithView:self.turnLabel] / 10;
+        NSInteger tagIntersect = [self buttonThatIntersectsWithView:self.turnLabel];
+        BOOL doesIntersect = tagIntersect != -1;
         UIButton *button = nil;
-        if (tagIntersect != -1 ) {
+        if (doesIntersect) {
             button = [self.view viewWithTag:tagIntersect];
+        } else {
+            return;
         }
         NSArray *rowCol = [self getBoardIndexesFromButton:button];
         NSUInteger row = [[rowCol firstObject] integerValue];
@@ -81,9 +83,7 @@ static void *currentGameStateContext = &currentGameStateContext;
                                  CGPoint oldPoint = CGPointMake(self.turnLabel.center.x - currentSpot.x, self.turnLabel.center.y - currentSpot.y);
                                  self.turnLabel.center = oldPoint;
                              }
-                             completion:^(BOOL finished) {
-                                 NSLog(@"snapped back");
-                             }
+                             completion:nil
              ];
         }
     // keep moving the label around the screen
@@ -225,15 +225,15 @@ static void *currentGameStateContext = &currentGameStateContext;
     NSRange range = NSMakeRange(i, 1);
     [button setTitle:[self.gameEngine.boardState substringWithRange:range]
             forState:UIControlStateNormal];
+
+    // TODO: repeated code, fix this;
+    UIColor *buttonColor = ([self.gameEngine.playerTurn isEqualToString:@"O"]) ? [UIColor redColor] : [UIColor blueColor];
+    [button setTitleColor:buttonColor forState:UIControlStateNormal];
 }
 
 -(void) updateTurnLabel {
     self.turnLabel.text = self.gameEngine.playerTurn;
-    if ([self.gameEngine.playerTurn isEqualToString:@"X"]) {
-        self.turnLabel.textColor = [UIColor redColor];
-    } else {
-        self.turnLabel.textColor = [UIColor blueColor];
-    }
+    self.turnLabel.textColor = [self.gameEngine.playerTurn isEqualToString:@"O"] ? [UIColor redColor] : [UIColor blueColor];
 }
 
 -(NSArray*) getBoardIndexesFromButton:(UIButton *) button {
