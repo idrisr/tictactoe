@@ -24,6 +24,9 @@
 @property NSArray<UIButton*> *buttonArray;
 @property TicTacToeBoard *gameEngine;
 @property (weak, nonatomic) IBOutlet UILabel *turnLabel;
+@property UIDynamicAnimator *animator;
+@property UISnapBehavior *snapBehavior;
+@property CGPoint turnLabelStartPoint;
 
 -(void) layoutBoard;
 @end
@@ -35,6 +38,22 @@ static void *currentGameStateContext = &currentGameStateContext;
 @implementation GameViewController
 
 #pragma mark - view life cycle
+
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+
+    if (self.gameEngine.currentGameState == GameStateEmpty) {
+        [self updateTurnLabel];
+        [self layoutBoard];
+    }
+
+    self.animator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
+
+    CGPoint snapToPoint = self.turnLabel.center;
+    self.snapBehavior = [[UISnapBehavior alloc] initWithItem:self.turnLabel snapToPoint:snapToPoint];
+    self.snapBehavior.damping = 0.5f;
+    [self.animator addBehavior:self.snapBehavior];
+}
 
 -(void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -81,11 +100,6 @@ static void *currentGameStateContext = &currentGameStateContext;
     [[self navigationController] setNavigationBarHidden:NO];
 }
 
--(void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    [self updateTurnLabel];
-    [self layoutBoard];
-}
 
 -(NSInteger) buttonThatIntersectsWithView:(UIView *) view {
     NSInteger __block buttonTag = -1;
@@ -118,17 +132,9 @@ static void *currentGameStateContext = &currentGameStateContext;
         if (canMoveToSquare && tagIntersect) {
             // tell the board that a move was made on that square
             [self.gameEngine updateBoardForCurrentPlayerAtRow:row atColumn:col];
-        } else {
-            // snap it back to where it was
-            [UIView animateWithDuration:0.5
-                             animations:^{
-                                 CGPoint currentSpot = [panGesture translationInView:self.view];
-                                 CGPoint oldPoint = CGPointMake(self.turnLabel.center.x - currentSpot.x, self.turnLabel.center.y - currentSpot.y);
-                                 self.turnLabel.center = oldPoint;
-                             }
-                             completion:nil
-             ];
         }
+        // snap it back to where it was
+        [self.animator updateItemUsingCurrentState:self.turnLabel];
     // keep moving the label around the screen
     } else {
         self.turnLabel.center = [panGesture locationInView:self.turnLabel.superview];
