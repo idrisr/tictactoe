@@ -10,7 +10,8 @@
 #import "TicTacToeBoard.h"
 #import "NSString+ConveryToArray.h"
 
-@interface ViewController ()
+@interface ViewController () <UIGestureRecognizerDelegate>
+
 @property (weak, nonatomic) IBOutlet UIButton *button1;
 @property (weak, nonatomic) IBOutlet UIButton *button2;
 @property (weak, nonatomic) IBOutlet UIButton *button3;
@@ -33,19 +34,36 @@ static void *currentGameStateContext = &currentGameStateContext;
 
 @implementation ViewController
 
+- (IBAction)panGesture:(id)sender {
+    NSLog(@"did pan");
+}
+
+#pragma mark - view life cycle
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self layoutBoard];
 }
 
+-(void) handlePan {
+    NSLog(@"handling pan");
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.turnLabel.font = [UIFont systemFontOfSize:40];
-    self.gameEngine = [[TicTacToeBoard alloc] init];
 
+    // set up pan gesture
+    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan)];
+    [self.turnLabel addGestureRecognizer:panGesture];
+    panGesture.delegate = self;
+    [self.turnLabel setUserInteractionEnabled:YES];
+
+
+    self.gameEngine = [[TicTacToeBoard alloc] init];
+    // setup kvo on game engine
     [self.gameEngine addObserver:self
                       forKeyPath:NSStringFromSelector(@selector(playerTurn))
-                         options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld
+                         options:0
                          context:playerTurnContext];
 
     [self.gameEngine addObserver:self
@@ -55,10 +73,11 @@ static void *currentGameStateContext = &currentGameStateContext;
 
     [self.gameEngine addObserver:self
                       forKeyPath:NSStringFromSelector(@selector(currentGameState))
-                         options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld
+                         options:0
                          context:currentGameStateContext];
 }
 
+#pragma mark - kvo
 -(void)observeValueForKeyPath:(NSString *)keyPath
                      ofObject:(id)object
                        change:(NSDictionary<NSString *,id> *)change
@@ -73,7 +92,6 @@ static void *currentGameStateContext = &currentGameStateContext;
 }
 
 -(void) checkGameStatus {
-    NSLog(@"%li", self.gameEngine.currentGameState);
     switch (self.gameEngine.currentGameState) {
         case GameStateEmpty:
             break;

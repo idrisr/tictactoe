@@ -109,7 +109,9 @@
         self.currentGameState = GameStateTied;
     } else if ([self isGameEmpty]) {
         self.currentGameState = GameStateEmpty;
-    } else self.currentGameState = GameStateStarted;
+    } else {
+        self.currentGameState = GameStateStarted;
+    };
 }
 
 -(BOOL) didCurrentPlayerWin {

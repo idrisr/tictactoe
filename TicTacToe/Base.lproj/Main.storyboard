@@ -62,6 +62,15 @@
                                     <action selector="onButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="VT4-w7-iIC"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" tag="60" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uGN-jB-jB5">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="246" y="262" width="75" height="75"/>
+                                </variation>
+                                <connections>
+                                    <action selector="onButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9Vy-Ku-Xka"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" tag="70" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PIi-Dn-b06">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                 <variation key="widthClass=compact" fixedFrame="YES">
@@ -91,6 +100,7 @@
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Turn" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Npa-dW-kGS">
                                 <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                <gestureRecognizers/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -98,17 +108,11 @@
                                     <rect key="frame" x="80" y="57" width="234" height="49"/>
                                 </variation>
                             </label>
-                            <button opaque="NO" tag="60" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uGN-jB-jB5">
-                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="246" y="262" width="75" height="75"/>
-                                </variation>
-                                <connections>
-                                    <action selector="onButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9Vy-Ku-Xka"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <accessibility key="accessibilityConfiguration">
+                            <accessibilityTraits key="traits" notEnabled="YES"/>
+                        </accessibility>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="UT4-02-Gqn"/>
@@ -116,11 +120,11 @@
                                 <exclude reference="MWM-t9-eng"/>
                                 <exclude reference="jaj-j9-9tL"/>
                                 <exclude reference="7le-QK-GQc"/>
+                                <exclude reference="uGN-jB-jB5"/>
                                 <exclude reference="PIi-Dn-b06"/>
                                 <exclude reference="3CQ-AX-JQJ"/>
                                 <exclude reference="bHd-yu-Lqo"/>
                                 <exclude reference="Npa-dW-kGS"/>
-                                <exclude reference="uGN-jB-jB5"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -130,11 +134,11 @@
                                 <include reference="MWM-t9-eng"/>
                                 <include reference="jaj-j9-9tL"/>
                                 <include reference="7le-QK-GQc"/>
+                                <include reference="uGN-jB-jB5"/>
                                 <include reference="PIi-Dn-b06"/>
                                 <include reference="3CQ-AX-JQJ"/>
                                 <include reference="bHd-yu-Lqo"/>
                                 <include reference="Npa-dW-kGS"/>
-                                <include reference="uGN-jB-jB5"/>
                             </mask>
                         </variation>
                     </view>
@@ -152,11 +156,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <panGestureRecognizer minimumNumberOfTouches="1" id="0P5-4Y-MWp">
-                    <connections>
-                        <action selector="panGesture:" destination="BYZ-38-t0r" id="v7B-Fj-nOF"/>
-                    </connections>
-                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="244.5" y="306"/>
         </scene>
