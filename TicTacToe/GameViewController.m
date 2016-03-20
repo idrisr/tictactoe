@@ -6,11 +6,11 @@
 //  Copyright © 2016 Brandon Gress. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "GameViewController.h"
 #import "TicTacToeBoard.h"
 #import "NSString+ConveryToArray.h"
 
-@interface ViewController () <UIGestureRecognizerDelegate>
+@interface GameViewController () <UIGestureRecognizerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *button1;
 @property (weak, nonatomic) IBOutlet UIButton *button2;
@@ -32,9 +32,55 @@ static void *playerTurnContext = &playerTurnContext;
 static void *boardStateContext = &boardStateContext;
 static void *currentGameStateContext = &currentGameStateContext;
 
-@implementation ViewController
+@implementation GameViewController
 
 #pragma mark - view life cycle
+
+-(void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [[self navigationController] setNavigationBarHidden:YES];
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [[self navigationController] setNavigationBarHidden:YES];
+
+    self.buttonArray = @[self.button1, self.button2, self.button3,
+                         self.button4, self.button5, self.button6,
+                         self.button7, self.button8, self.button9];
+
+    self.turnLabel.font = [UIFont systemFontOfSize:40];
+
+    // set up pan gesture
+    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(moveObject:)];
+    [self.turnLabel addGestureRecognizer:panGesture];
+    panGesture.delegate = self;
+    [self.turnLabel setUserInteractionEnabled:YES];
+
+
+    self.gameEngine = [[TicTacToeBoard alloc] init];
+    // setup kvo on game engine
+    [self.gameEngine addObserver:self
+                      forKeyPath:NSStringFromSelector(@selector(playerTurn))
+                         options:0
+                         context:playerTurnContext];
+
+    [self.gameEngine addObserver:self
+                      forKeyPath:NSStringFromSelector(@selector(boardState))
+                         options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld
+                         context:boardStateContext];
+
+    [self.gameEngine addObserver:self
+                      forKeyPath:NSStringFromSelector(@selector(currentGameState))
+                         options:0
+                         context:currentGameStateContext];
+}
+
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    [[self navigationController] setNavigationBarHidden:NO];
+}
+
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self updateTurnLabel];
@@ -91,39 +137,6 @@ static void *currentGameStateContext = &currentGameStateContext;
     }
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-
-    self.buttonArray = @[self.button1, self.button2, self.button3,
-                         self.button4, self.button5, self.button6,
-                         self.button7, self.button8, self.button9];
-
-    self.turnLabel.font = [UIFont systemFontOfSize:40];
-
-    // set up pan gesture
-    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(moveObject:)];
-    [self.turnLabel addGestureRecognizer:panGesture];
-    panGesture.delegate = self;
-    [self.turnLabel setUserInteractionEnabled:YES];
-
-
-    self.gameEngine = [[TicTacToeBoard alloc] init];
-    // setup kvo on game engine
-    [self.gameEngine addObserver:self
-                      forKeyPath:NSStringFromSelector(@selector(playerTurn))
-                         options:0
-                         context:playerTurnContext];
-
-    [self.gameEngine addObserver:self
-                      forKeyPath:NSStringFromSelector(@selector(boardState))
-                         options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld
-                         context:boardStateContext];
-
-    [self.gameEngine addObserver:self
-                      forKeyPath:NSStringFromSelector(@selector(currentGameState))
-                         options:0
-                         context:currentGameStateContext];
-}
 
 #pragma mark - kvo
 -(void)observeValueForKeyPath:(NSString *)keyPath
