@@ -26,56 +26,83 @@
 }
 
 - (void)testGameState {
+    // **************************************************************
     // top row
-    TicTacToeBoard *board = [[TicTacToeBoard alloc] initWithBoardSize:3 boardState:@"XXXOOOOOO"];
+    TicTacToeBoard *board = [[TicTacToeBoard alloc] init];
+    board.boardState = [NSMutableString stringWithString:@"XXXOOOOOO"];
     board.playerTurn = @"X";
     XCTAssert([board currentGameState] == GameStateWon);
 
+    // **************************************************************
     // first column
     NSString *boardState = [NSString stringWithFormat:@"%@%@%@", @"XOX",
                                                                 @"XOX",
                                                                 @"XOO"
                   ];
-    board = [[TicTacToeBoard alloc] initWithBoardSize:3 boardState:boardState];
+    board.boardState = [NSMutableString stringWithString:boardState];
     board.playerTurn = @"X";
     XCTAssert([board currentGameState] == GameStateWon);
 
+    // **************************************************************
     // game tied
     boardState = [NSString stringWithFormat:@"%@%@%@", @"XXO",
                                                          @"OOX",
                                                          @"XOX"
                             ];
-    board = [[TicTacToeBoard alloc] initWithBoardSize:3 boardState:boardState];
     board.playerTurn = @"O";
+    board.boardState = [NSMutableString stringWithString:boardState];
     XCTAssert([board currentGameState] == GameStateTied);
 
 
+    // **************************************************************
     // down diagonal win
     boardState = [NSString stringWithFormat:@"%@%@%@", @"XOX",
                                                        @"OXX",
                                                        @"XOO"
                    ];
-    board = [[TicTacToeBoard alloc] initWithBoardSize:3 boardState:boardState];
     board.playerTurn = @"X";
+    board.boardState = [NSMutableString stringWithString:boardState];
     XCTAssert([board currentGameState] == GameStateWon);
 
+    // **************************************************************
     // down diagonal win not full board
     boardState = [NSString stringWithFormat:@"%@%@%@", @"XOX",
                                                        @" XO",
                                                        @"XO "
                    ];
-    board = [[TicTacToeBoard alloc] initWithBoardSize:3 boardState:boardState];
     board.playerTurn = @"X";
+    board.boardState = [NSMutableString stringWithString:boardState];
     XCTAssert([board currentGameState] == GameStateWon);
 
+    // **************************************************************
     // game empty
     boardState = [NSString stringWithFormat:@"%@%@%@", @"   ",
                                                        @"   ",
                                                        @"   "
                    ];
-    board = [[TicTacToeBoard alloc] initWithBoardSize:3 boardState:boardState];
     board.playerTurn = @"X";
+    board.boardState = [NSMutableString stringWithString:boardState];
     XCTAssert([board currentGameState] == GameStateEmpty);
+
+    // **************************************************************
+    // game win right side X
+    boardState = [NSString stringWithFormat:@"%@%@%@", @" OX",
+                                                       @" OX",
+                                                       @"  X"
+                   ];
+    board.playerTurn = @"X";
+    board.boardState = [NSMutableString stringWithString:boardState];
+    XCTAssert([board currentGameState] == GameStateWon);
+
+    // **************************************************************
+    // game win right side X
+    boardState = [NSString stringWithFormat:@"%@%@%@", @" OX",
+                                                       @" OX",
+                                                       @"  X"
+                   ];
+    board.playerTurn = @"X";
+    board.boardState = [NSMutableString stringWithString:boardState];
+    XCTAssert([board currentGameState] == GameStateWon);
 }
 
 @end

@@ -8,20 +8,30 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(NSUInteger, GameState) {
-    GameStateEmpty = 0,
-    GameStateStarted,
-    GameStateWon,
-    GameStateTied
+//typedef NS_ENUM(NSUInteger, GameState) {
+//    GameStateEmpty = 0,
+//    GameStateStarted,
+//    GameStateWon,
+//    GameStateTied,
+//    GameStateOver = GameStateTied | GameStateWon
+//};
+
+typedef NS_OPTIONS(NSUInteger, GameState) {
+    GameStateEmpty = 1 << 0,
+    GameStateStarted = 1 << 1,
+    GameStateWon = 1 << 2,
+    GameStateTied = 1 << 3,
+    GameStateOver = GameStateTied | GameStateWon
 };
 
 @interface TicTacToeBoard : NSObject
 
 @property NSString *playerTurn;
 @property NSUInteger boardSize;
+@property NSMutableString *boardState;       // 0 for "O", 1 for "X", " " if not yet played
+@property GameState currentGameState;
 
--(GameState) currentGameState;
-
+-(void) restartGame;
 -(void) updateBoardForCurrentPlayerAtRow:(NSUInteger) row atColumn:(NSUInteger)column; // 1 indexed for human brains
 -(instancetype) initWithBoardSize:(NSUInteger)boardSize boardState:(NSString *)board;
 -(instancetype) initWithBoardSize:(NSUInteger)boardSize;

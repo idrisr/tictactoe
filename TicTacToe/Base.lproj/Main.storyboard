@@ -107,19 +107,6 @@
                                     <action selector="onButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9Vy-Ku-Xka"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="X" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xiN-19-nZ8">
-                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
-                                <gestureRecognizers/>
-                                <fontDescription key="fontDescription" type="system" pointSize="41"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="90" y="499" width="31" height="43"/>
-                                </variation>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="0P5-4Y-MWp" appends="YES" id="6Ja-aM-ClH"/>
-                                </connections>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <variation key="default">
@@ -134,7 +121,6 @@
                                 <exclude reference="bHd-yu-Lqo"/>
                                 <exclude reference="Npa-dW-kGS"/>
                                 <exclude reference="uGN-jB-jB5"/>
-                                <exclude reference="xiN-19-nZ8"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -149,7 +135,6 @@
                                 <include reference="bHd-yu-Lqo"/>
                                 <include reference="Npa-dW-kGS"/>
                                 <include reference="uGN-jB-jB5"/>
-                                <include reference="xiN-19-nZ8"/>
                             </mask>
                         </variation>
                     </view>

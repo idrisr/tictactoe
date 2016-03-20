@@ -11,7 +11,6 @@
 
 
 @interface TicTacToeBoard()
-@property NSMutableString *boardState;       // 0 for "O", 1 for "X", " " if not yet played
 @end
 
 @implementation TicTacToeBoard
@@ -21,8 +20,20 @@
     // designated initializer
     self = [super init];
     self.boardSize = boardSize;
-    self.boardState = [NSMutableString stringWithString:board];
+    [self restartGame];
+
+    [self addObserver:self
+           forKeyPath:NSStringFromSelector(@selector(boardState))
+              options:0
+              context:nil];
     return self;
+}
+
+-(void)observeValueForKeyPath:(NSString *)keyPath
+                     ofObject:(id)object
+                       change:(NSDictionary<NSString *,id> *)change
+                      context:(void *)context {
+    [self updateCurrentGameState];
 }
 
 -(instancetype)initWithBoardSize:(NSUInteger)boardSize {
@@ -43,11 +54,18 @@
         _winningGameStates = @[@"111      ",
                                @"   111   ",
                                @"      111",
-                               @"1  1  1  ",
+                               @"1  1  1",
                                @"1   1   1",
                                @"  1 1 1  "];
     });
     return _winningGameStates;
+}
+
+-(void) restartGame {
+    self.playerTurn = @"X";
+    NSUInteger squares = self.boardSize * self.boardSize;
+    self.boardState = [NSMutableString stringWithString:[@"" stringByPaddingToLength:squares withString: @" " startingAtIndex:0]];
+    self.currentGameState = GameStateEmpty;
 }
 
 -(NSUInteger) getIndexFromRow:(NSUInteger) row column:(NSUInteger)column {
@@ -59,7 +77,7 @@
         return NO;
     }
     NSUInteger index = [self getIndexFromRow:row column:column];
-    BOOL isBlankAtIndex = [[self.boardState substringFromIndex:index] isEqualToString:@" "];
+    BOOL isBlankAtIndex = [[self.boardState substringWithRange:NSMakeRange(index, 1)] isEqualToString:@" "];
     return isBlankAtIndex;
 }
 
@@ -70,8 +88,9 @@
         // takes 1-index values
         NSUInteger index = [self getIndexFromRow:row column:column];
         NSRange replacementRange = NSMakeRange(index, 1);
-        [self.boardState replaceCharactersInRange:replacementRange
-                                       withString:self.playerTurn];
+        NSString *newBoardState = [self.boardState stringByReplacingCharactersInRange:replacementRange withString:self.playerTurn];
+        self.boardState = [NSMutableString stringWithString:newBoardState];
+        [self updateCurrentGameState];
     }
 
     if ([self currentGameState] == GameStateStarted) {
@@ -80,22 +99,17 @@
 }
 
 -(void) toggleCurrentPlayer {
-    if ([self.playerTurn isEqualToString:@"X"]) {
-        self.playerTurn = @"O";
-    } else {
-        self.playerTurn = @"X";
-    }
-
+    self.playerTurn = ([self.playerTurn isEqualToString:@"X"]) ? @"O" : @"X";
 }
 
--(GameState) currentGameState {
+-(void) updateCurrentGameState {
     if ([self didCurrentPlayerWin]) {
-        return GameStateWon;
+        self.currentGameState = GameStateWon;
     } else if ([self isGameTied]) {
-        return GameStateTied;
+        self.currentGameState = GameStateTied;
     } else if ([self isGameEmpty]) {
-        return GameStateEmpty;
-    } else return GameStateStarted;
+        self.currentGameState = GameStateEmpty;
+    } else self.currentGameState = GameStateStarted;
 }
 
 -(BOOL) didCurrentPlayerWin {
@@ -140,6 +154,10 @@
     NSUInteger boxes = self.boardSize * self.boardSize;
     NSString *emptyBoard = [@"" stringByPaddingToLength:boxes withString: @" " startingAtIndex:0];
     return ([emptyBoard isEqualToString:self.boardState]);
+}
+
+-(void)dealloc {
+    [self removeObserver:self forKeyPath:NSStringFromSelector(@selector(boardState))];
 }
 
 @end
