@@ -91,10 +91,10 @@
         NSString *newBoardState = [self.boardState stringByReplacingCharactersInRange:replacementRange withString:self.playerTurn];
         self.boardState = [NSMutableString stringWithString:newBoardState];
         [self updateCurrentGameState];
-    }
 
-    if ([self currentGameState] == GameStateStarted) {
-        [self toggleCurrentPlayer];
+        if ([self currentGameState] == GameStateStarted) {
+            [self toggleCurrentPlayer];
+        }
     }
 }
 

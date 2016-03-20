@@ -25,7 +25,6 @@
 @property TicTacToeBoard *gameEngine;
 @property (weak, nonatomic) IBOutlet UILabel *turnLabel;
 
--(void) restartGame;
 -(void) layoutBoard;
 @end
 
@@ -134,7 +133,7 @@ static void *currentGameStateContext = &currentGameStateContext;
     if (context == playerTurnContext){
         [self updateTurnLabel];
     } else if (context == boardStateContext) {
-        [self updateBoardForChange:change];
+        [self updateBoardForChanges:change];
     } else if (context == currentGameStateContext) {
         [self checkGameStatus];
     }
@@ -172,26 +171,14 @@ static void *currentGameStateContext = &currentGameStateContext;
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:title
                                                                    message:@""
                                                             preferredStyle:UIAlertControllerStyleActionSheet];
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
-                                                           style:UIAlertActionStyleCancel
-                                                         handler:nil];
 
     UIAlertAction *playAgain = [UIAlertAction actionWithTitle:@"Play Again"
                                                         style:UIAlertActionStyleDefault
                                                       handler:^(UIAlertAction * _Nonnull action) {
-                                                          [self restartGame];
-                                                          [self layoutBoard];
+                                                            [self.gameEngine restartGame];
                                                       }];
-    [alert addAction:cancelAction];
     [alert addAction:playAgain];
-
     [self presentViewController:alert animated:YES completion:nil];
-}
-
--(void) restartGame {
-    NSUInteger squares = self.gameEngine.boardSize * self.gameEngine.boardSize;
-    NSString *boardState = [@"" stringByPaddingToLength:squares withString: @" " startingAtIndex:0];
-    self.gameEngine.boardState = [NSMutableString stringWithString:boardState];
 }
 
 -(void) layoutBoard {
@@ -209,26 +196,29 @@ static void *currentGameStateContext = &currentGameStateContext;
     }
 }
 
--(void) updateBoardForChange:(NSDictionary *)change {
+-(void) updateBoardForChanges:(NSDictionary *)change {
     NSString *new = change[@"new"];
     NSString *old = change[@"old"];
+    NSMutableArray *changes = [NSMutableArray new];
 
-    int i = 0;
-    for (i = 0; i < new.length; i++) {
+    for (int i = 0; i < new.length; i++) {
         if ([old characterAtIndex:i] != [new characterAtIndex:i]) {
-            break;
+            [changes addObject:@(i)];
         }
     }
 
-    NSUInteger tag = (i + 1) * 10;
-    UIButton *button = [self.view viewWithTag:tag];
-    NSRange range = NSMakeRange(i, 1);
-    [button setTitle:[self.gameEngine.boardState substringWithRange:range]
-            forState:UIControlStateNormal];
+    [changes enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        int i = [obj intValue];
+        NSUInteger tag = (i + 1) * 10;
+        UIButton *button = [self.view viewWithTag:tag];
+        NSRange range = NSMakeRange(i, 1);
+        [button setTitle:[self.gameEngine.boardState substringWithRange:range]
+                forState:UIControlStateNormal];
 
-    // TODO: repeated code, fix this;
-    UIColor *buttonColor = ([self.gameEngine.playerTurn isEqualToString:@"O"]) ? [UIColor redColor] : [UIColor blueColor];
-    [button setTitleColor:buttonColor forState:UIControlStateNormal];
+        // TODO: repeated code, fix this;
+        UIColor *buttonColor = ([self.gameEngine.playerTurn isEqualToString:@"O"]) ? [UIColor redColor] : [UIColor blueColor];
+        [button setTitleColor:buttonColor forState:UIControlStateNormal];
+    }];
 }
 
 -(void) updateTurnLabel {
