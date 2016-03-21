@@ -387,7 +387,7 @@ static void *currentGameStateContext = &currentGameStateContext;
     // snap all the views back to where they originally were
     NSDictionary *origViewPositions = [self viewPositions];
     NSArray *keys = [origViewPositions allKeys];
-    [keys enumerateObjectsWithOptions:NSEnumerationConcurrent
+    [keys enumerateObjectsWithOptions:0
                            usingBlock:^(id  _Nonnull key, NSUInteger idx, BOOL * _Nonnull stop) {
                                NSUInteger tag = [key integerValue];
                                NSValue *obj = [origViewPositions objectForKey:key];
