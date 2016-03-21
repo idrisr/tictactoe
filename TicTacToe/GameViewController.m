@@ -249,6 +249,7 @@ static void *currentGameStateContext = &currentGameStateContext;
     UIAlertAction *actionAlert = [UIAlertAction actionWithTitle:@"Play Again"
                                                         style:UIAlertActionStyleDefault
                                                       handler:^(UIAlertAction * _Nonnull action) {
+                                                          [self.animator removeAllBehaviors];
                                                           NSArray *nonButtonItems = @[self.turnLabel, self.playAgainButton, self.helpButton];
                                                           NSArray *dynamicItems = [self.buttonArray arrayByAddingObjectsFromArray:nonButtonItems];
                                                           [self.playAgainButton setHidden:NO];
