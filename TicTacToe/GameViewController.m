@@ -235,7 +235,6 @@ static void *currentGameStateContext = &currentGameStateContext;
 }
 
 -(void) showAlertGameOver {
-    NSLog(@"in show alert game over");
     NSString *title = nil;
     if (self.gameEngine.currentGameState == GameStateWon) {
         title = [NSString stringWithFormat:@"Player %@ Won!", self.gameEngine.playerTurn];
@@ -247,21 +246,11 @@ static void *currentGameStateContext = &currentGameStateContext;
                                                                    message:@""
                                                             preferredStyle:UIAlertControllerStyleActionSheet];
 
-    UIAlertAction *playAgain = [UIAlertAction actionWithTitle:@"Play Again"
+    UIAlertAction *actionAlert = [UIAlertAction actionWithTitle:@"Play Again"
                                                         style:UIAlertActionStyleDefault
                                                       handler:^(UIAlertAction * _Nonnull action) {
                                                           NSArray *nonButtonItems = @[self.turnLabel, self.playAgainButton, self.helpButton];
                                                           NSArray *dynamicItems = [self.buttonArray arrayByAddingObjectsFromArray:nonButtonItems];
-                                                          // add play again button
-//                                                          CGSize size = [self getStandardButtonSize];
-//                                                          CGFloat x = CGRectGetMidX(self.view.frame);
-//                                                          CGFloat y = 50;
-//                                                          CGRect newButtonrect = CGRectMake(x, y, size.width, size.height);
-//                                                          UIButton *playAgainButton = [[UIButton alloc] initWithFrame:newButtonrect];
-//                                                          [playAgainButton addTarget:<#(nullable id)#>
-//                                                                              action:<#(nonnull SEL)#>
-//                                                                    forControlEvents:<#(UIControlEvents)#>];
-
                                                           [self.playAgainButton setHidden:NO];
 
                                                           UIDynamicItemBehavior *dynamics = [[UIDynamicItemBehavior alloc] initWithItems:dynamicItems];
@@ -276,6 +265,12 @@ static void *currentGameStateContext = &currentGameStateContext;
                                                           CGPoint topRight = [self pointForCorner:ViewCornerTopRight forView:self.view];
                                                           CGPoint bottomLeft = [self pointForCorner:ViewCornerBottomLeft forView:self.view];
                                                           CGPoint bottomRight = [self pointForCorner:ViewCornerBottomRight forView:self.view];
+
+                                                          NSLog(@"topleft: %@", NSStringFromCGPoint(topLeft));
+                                                          NSLog(@"topRight: %@", NSStringFromCGPoint(topRight));
+                                                          NSLog(@"bottomLeft: %@", NSStringFromCGPoint(bottomLeft));
+                                                          NSLog(@"bottomRight: %@", NSStringFromCGPoint(bottomRight));
+
                                                           [collision addBoundaryWithIdentifier:@"left" fromPoint:topLeft toPoint:bottomLeft];
                                                           [collision addBoundaryWithIdentifier:@"bottom" fromPoint:bottomLeft toPoint:bottomRight];
                                                           [collision addBoundaryWithIdentifier:@"right" fromPoint:topRight toPoint:bottomRight];
@@ -288,12 +283,9 @@ static void *currentGameStateContext = &currentGameStateContext;
                                                                                              usingBlock:^(UIButton * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                                                                                                  [self.animator updateItemUsingCurrentState:obj];
                                                                                              }];
-                                                          //                                                [self.gameEngine restartGame];
-
-
                                                       }];
 
-    [alert addAction:playAgain];
+    [alert addAction:actionAlert];
     [self presentViewController:alert animated:YES completion:nil];
 }
 
@@ -392,16 +384,12 @@ static void *currentGameStateContext = &currentGameStateContext;
 }
 
 - (IBAction)playAgain:(UIButton *)sender {
+    NSLog(@"Entering play again");
     self.playAgainButton.hidden = YES;
     [self layoutBoard];
+    [self.animator removeAllBehaviors];
+    [self.animator addBehavior:self.snapBehavior];
 
-    // remove all the behaviors except the snap for the label
-    [self.animator.behaviors enumerateObjectsWithOptions:NSEnumerationConcurrent
-                                              usingBlock:^(__kindof UIDynamicBehavior * _Nonnull behavior, NSUInteger idx, BOOL * _Nonnull stop) {
-                                                  if (behavior != self.snapBehavior){
-                                                      [self.animator removeBehavior:behavior];
-                                                  }
-                                              }];
     // snap all the views back to where they originally were
     NSDictionary *origViewPositions = [self viewPositions];
     NSArray *keys = [origViewPositions allKeys];
@@ -412,10 +400,11 @@ static void *currentGameStateContext = &currentGameStateContext;
                                CGPoint point = [obj CGPointValue];
                                UIView *view = [self.view viewWithTag:tag];
                                UISnapBehavior *snap = [[UISnapBehavior alloc] initWithItem:view snapToPoint:point];
-                               self.snapBehavior.damping = 0.5f;
+                               snap.damping = 0.9f;
                                [self.animator addBehavior:snap];
                                [self.animator updateItemUsingCurrentState:view];
                            }];
+    [self.gameEngine restartGame];
 }
 
 -(void)dealloc {
