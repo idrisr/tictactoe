@@ -8,7 +8,7 @@
 
 #import "GameViewController.h"
 #import "TicTacToeBoard.h"
-#import "NSString+ConveryToArray.h"
+#import "UIColor+CustomColor.h"
 
 typedef NS_ENUM (NSUInteger, ViewCorner){
     ViewCornerTopLeft = 0,
@@ -96,6 +96,7 @@ static void *currentGameStateContext = &currentGameStateContext;
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[self navigationController] setNavigationBarHidden:YES];
+    self.view.backgroundColor = [UIColor black];
 
     self.buttonArray = @[self.button1, self.button2, self.button3,
                          self.button4, self.button5, self.button6,
@@ -107,8 +108,10 @@ static void *currentGameStateContext = &currentGameStateContext;
     // set up play again button
     self.playAgainButton.layer.cornerRadius = 10;
     self.playAgainButton.layer.borderWidth = 2;
-    self.playAgainButton.layer.borderColor = [UIColor greenColor].CGColor;
+    self.playAgainButton.layer.borderColor = [UIColor lightBlue].CGColor;
+    self.playAgainButton.titleLabel.textColor = [UIColor lightBlue];
     self.playAgainButton.titleLabel.font = [UIFont systemFontOfSize:30];
+//    self.playAgainButton.backgroundColor = [UIColor brown];
 
     // set up pan gesture
     UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(moveObject:)];
@@ -196,24 +199,13 @@ static void *currentGameStateContext = &currentGameStateContext;
     }
 }
 
--(BOOL) buttonsOffScreen {
-    BOOL __block intersect = NO;
-    [self.buttonArray enumerateObjectsWithOptions:NSEnumerationConcurrent
-                                       usingBlock:^(UIButton * _Nonnull button, NSUInteger idx, BOOL * _Nonnull stop) {
-                                           intersect = CGRectIntersectsRect(self.view.frame, button.frame);
-                                           if (intersect) {
-                                               *stop = YES;
-                                           }
-                                       }];
-    return intersect;
-}
-
 -(void) checkGameStatus {
     switch (self.gameEngine.currentGameState) {
         case GameStateEmpty:
             break;
 
         case GameStateStarted:
+//            [self pushTurnLabel];
             break;
 
         case GameStateWon:
@@ -227,6 +219,14 @@ static void *currentGameStateContext = &currentGameStateContext;
         default:
             break;
     }
+}
+
+-(void) pushTurnLabel {
+    NSLog(@"in push turn label");
+    UIPushBehavior *push = [[UIPushBehavior alloc] initWithItems:@[self.turnLabel] mode:UIPushBehaviorModeContinuous];
+    [push setAngle:M_PI magnitude:10.0f];
+    [self.animator addBehavior:push];
+    push.active = YES;
 }
 
 -(CGSize) getStandardButtonSize {
@@ -322,16 +322,14 @@ static void *currentGameStateContext = &currentGameStateContext;
 
 -(void) layoutBoard {
     self.turnLabel.text = self.gameEngine.playerTurn;
-    NSUInteger squares = self.gameEngine.boardSize * self.gameEngine.boardSize;
-    for (int i = 1; i < squares + 1; i++) {
-        NSUInteger tag = i * 10;
-        UIButton *button = (UIButton *) [self.view viewWithTag:tag];
+
+    NSLog(@"%li", [self.buttonArray count]);
+    for (UIButton *button in self.buttonArray) {
         button.layer.cornerRadius = 10;
         button.layer.borderWidth = 2;
-        button.layer.borderColor = [UIColor blueColor].CGColor;
+        button.layer.borderColor = [UIColor blue].CGColor;
         button.titleLabel.font = [UIFont systemFontOfSize:40];
         [button setTitle:@" " forState:UIControlStateNormal];
-        [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     }
 }
 
@@ -355,14 +353,15 @@ static void *currentGameStateContext = &currentGameStateContext;
                 forState:UIControlStateNormal];
 
         // TODO: repeated code, fix this;
-        UIColor *buttonColor = ([self.gameEngine.playerTurn isEqualToString:@"O"]) ? [UIColor redColor] : [UIColor blueColor];
+        UIColor *buttonColor = ([self.gameEngine.playerTurn isEqualToString:@"O"]) ? [UIColor green] : [UIColor plum];
         [button setTitleColor:buttonColor forState:UIControlStateNormal];
+        button.layer.borderColor = buttonColor.CGColor;
     }];
 }
 
 -(void) updateTurnLabel {
     self.turnLabel.text = self.gameEngine.playerTurn;
-    self.turnLabel.textColor = [self.gameEngine.playerTurn isEqualToString:@"O"] ? [UIColor redColor] : [UIColor blueColor];
+    self.turnLabel.textColor = [self.gameEngine.playerTurn isEqualToString:@"O"] ? [UIColor green] : [UIColor plum];
 }
 
 -(NSArray*) getBoardIndexesFromButton:(UIButton *) button {
