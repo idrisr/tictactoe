@@ -8,14 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-//typedef NS_ENUM(NSUInteger, GameState) {
-//    GameStateEmpty = 0,
-//    GameStateStarted,
-//    GameStateWon,
-//    GameStateTied,
-//    GameStateOver = GameStateTied | GameStateWon
-//};
-
 typedef NS_OPTIONS(NSUInteger, GameState) {
     GameStateEmpty = 1 << 0,
     GameStateStarted = 1 << 1,

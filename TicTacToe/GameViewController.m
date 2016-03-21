@@ -193,7 +193,10 @@ static void *currentGameStateContext = &currentGameStateContext;
     if (context == playerTurnContext){
         [self updateTurnLabel];
     } else if (context == boardStateContext) {
-        [self updateBoardForChanges:change];
+        // how to use GameStateOver?
+        if (self.gameEngine.currentGameState != GameStateWon && self.gameEngine.currentGameState != GameStateTied) {
+            [self updateBoardForChanges:change];
+        }
     } else if (context == currentGameStateContext) {
         [self checkGameStatus];
     }
@@ -205,7 +208,6 @@ static void *currentGameStateContext = &currentGameStateContext;
             break;
 
         case GameStateStarted:
-//            [self pushTurnLabel];
             break;
 
         case GameStateWon:
@@ -222,7 +224,6 @@ static void *currentGameStateContext = &currentGameStateContext;
 }
 
 -(void) pushTurnLabel {
-    NSLog(@"in push turn label");
     UIPushBehavior *push = [[UIPushBehavior alloc] initWithItems:@[self.turnLabel] mode:UIPushBehaviorModeContinuous];
     [push setAngle:M_PI magnitude:10.0f];
     [self.animator addBehavior:push];
