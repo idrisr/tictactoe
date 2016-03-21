@@ -213,6 +213,11 @@ static void *currentGameStateContext = &currentGameStateContext;
     UIAlertAction *playAgain = [UIAlertAction actionWithTitle:@"Play Again"
                                                         style:UIAlertActionStyleDefault
                                                       handler:^(UIAlertAction * _Nonnull action) {
+                                                          UIDynamicItemBehavior *dynamics = [[UIDynamicItemBehavior alloc] initWithItems:self.buttonArray];
+                                                          dynamics.elasticity = 1.0;
+                                                          dynamics.allowsRotation = YES;
+                                                          dynamics.charge = -1.0;
+
                                                           UIGravityBehavior *gravity = [[UIGravityBehavior alloc] initWithItems:self.buttonArray];
                                                           UICollisionBehavior *collision = [[UICollisionBehavior alloc] initWithItems:self.buttonArray];
 
@@ -225,11 +230,12 @@ static void *currentGameStateContext = &currentGameStateContext;
                                                           [collision addBoundaryWithIdentifier:@"right" fromPoint:topRight toPoint:bottomRight];
                                                           [collision addBoundaryWithIdentifier:@"top" fromPoint:topLeft toPoint:topRight];
 
-                                                          CGFloat angle = M_PI * 2 * arc4random();
-                                                          CGFloat magnitude = 0.5;
-                                                          [gravity setAngle:angle magnitude:magnitude];
+//                                                          CGFloat angle = M_PI * 2 * arc4random();
+//                                                          CGFloat magnitude = 0.5;
+//                                                          [gravity setAngle:angle magnitude:magnitude];
                                                           [self.animator addBehavior:gravity];
                                                           [self.animator addBehavior:collision];
+                                                          [self.animator addBehavior:dynamics];
                                                           [self.buttonArray enumerateObjectsWithOptions:NSEnumerationConcurrent
                                                                                              usingBlock:^(UIButton * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                                                                                                  [self.animator updateItemUsingCurrentState:obj];
