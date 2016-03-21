@@ -81,8 +81,7 @@ static void *currentGameStateContext = &currentGameStateContext;
 
     self.animator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
 
-    CGPoint snapToPoint = self.turnLabel.center;
-    self.snapBehavior = [[UISnapBehavior alloc] initWithItem:self.turnLabel snapToPoint:snapToPoint];
+    self.snapBehavior.snapPoint = self.turnLabel.center;
     self.snapBehavior.damping = 0.5f;
 
     [self.animator addBehavior:self.snapBehavior];
@@ -104,6 +103,7 @@ static void *currentGameStateContext = &currentGameStateContext;
 
     self.turnLabel.font = [UIFont systemFontOfSize:40];
 
+    self.snapBehavior = [[UISnapBehavior alloc] initWithItem:self.turnLabel snapToPoint:self.turnLabel.center];
 
     // set up play again button
     self.playAgainButton.layer.cornerRadius = 10;
@@ -323,7 +323,6 @@ static void *currentGameStateContext = &currentGameStateContext;
 -(void) layoutBoard {
     self.turnLabel.text = self.gameEngine.playerTurn;
 
-    NSLog(@"%li", [self.buttonArray count]);
     for (UIButton *button in self.buttonArray) {
         button.layer.cornerRadius = 10;
         button.layer.borderWidth = 2;
@@ -403,9 +402,9 @@ static void *currentGameStateContext = &currentGameStateContext;
 }
 
 -(void)dealloc {
-    [self removeObserver:self.gameEngine forKeyPath:NSStringFromSelector(@selector(playerTurn))];
-    [self removeObserver:self.gameEngine forKeyPath:NSStringFromSelector(@selector(boardState))];
-    [self removeObserver:self.gameEngine forKeyPath:NSStringFromSelector(@selector(currentGameState))];
+    [self removeObserver:self.gameEngine forKeyPath:NSStringFromSelector(@selector(playerTurn)) context:playerTurnContext];
+    [self removeObserver:self.gameEngine forKeyPath:NSStringFromSelector(@selector(boardState)) context:boardStateContext];
+    [self removeObserver:self.gameEngine forKeyPath:NSStringFromSelector(@selector(currentGameState)) context:currentGameStateContext];
 }
 
 @end
