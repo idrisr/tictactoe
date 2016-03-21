@@ -267,11 +267,6 @@ static void *currentGameStateContext = &currentGameStateContext;
                                                           CGPoint bottomLeft = [self pointForCorner:ViewCornerBottomLeft forView:self.view];
                                                           CGPoint bottomRight = [self pointForCorner:ViewCornerBottomRight forView:self.view];
 
-                                                          NSLog(@"topleft: %@", NSStringFromCGPoint(topLeft));
-                                                          NSLog(@"topRight: %@", NSStringFromCGPoint(topRight));
-                                                          NSLog(@"bottomLeft: %@", NSStringFromCGPoint(bottomLeft));
-                                                          NSLog(@"bottomRight: %@", NSStringFromCGPoint(bottomRight));
-
                                                           [collision addBoundaryWithIdentifier:@"left" fromPoint:topLeft toPoint:bottomLeft];
                                                           [collision addBoundaryWithIdentifier:@"bottom" fromPoint:bottomLeft toPoint:bottomRight];
                                                           [collision addBoundaryWithIdentifier:@"right" fromPoint:topRight toPoint:bottomRight];
@@ -280,6 +275,7 @@ static void *currentGameStateContext = &currentGameStateContext;
                                                           [self.animator addBehavior:gravity];
                                                           [self.animator addBehavior:collision];
                                                           [self.animator addBehavior:dynamics];
+                                                          [self.animator addBehavior:self.snapBehavior];
                                                           [dynamicItems enumerateObjectsWithOptions:NSEnumerationConcurrent
                                                                                              usingBlock:^(UIButton * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                                                                                                  [self.animator updateItemUsingCurrentState:obj];
@@ -385,7 +381,6 @@ static void *currentGameStateContext = &currentGameStateContext;
 }
 
 - (IBAction)playAgain:(UIButton *)sender {
-    NSLog(@"Entering play again");
     self.playAgainButton.hidden = YES;
     [self layoutBoard];
     [self.animator removeAllBehaviors];
