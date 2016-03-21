@@ -98,7 +98,7 @@
                                     <action selector="onButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="OFp-r4-uMB"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="X" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Npa-dW-kGS">
+                            <label opaque="NO" userInteractionEnabled="NO" tag="2000" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="X" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Npa-dW-kGS">
                                 <rect key="frame" x="-42" y="-21" width="42" height="21"/>
                                 <gestureRecognizers/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -108,13 +108,23 @@
                                     <rect key="frame" x="185" y="59" width="30" height="30"/>
                                 </variation>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoDark" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wl3-kM-oqt">
+                            <button opaque="NO" tag="3000" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoDark" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wl3-kM-oqt">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                 <variation key="widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="346" y="554" width="22" height="22"/>
                                 </variation>
                                 <connections>
                                     <segue destination="mV3-l8-9rj" kind="show" id="rgW-AC-aMp"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" opaque="NO" tag="1000" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BdA-Wu-rgm">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <state key="normal" title="Play"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="18" y="72" width="75" height="75"/>
+                                </variation>
+                                <connections>
+                                    <action selector="playAgain:" destination="BYZ-38-t0r" eventType="touchUpInside" id="VfI-kg-m0A"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -135,6 +145,7 @@
                                 <exclude reference="3CQ-AX-JQJ"/>
                                 <exclude reference="Npa-dW-kGS"/>
                                 <exclude reference="wl3-kM-oqt"/>
+                                <exclude reference="BdA-Wu-rgm"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -150,6 +161,7 @@
                                 <include reference="3CQ-AX-JQJ"/>
                                 <include reference="Npa-dW-kGS"/>
                                 <include reference="wl3-kM-oqt"/>
+                                <include reference="BdA-Wu-rgm"/>
                             </mask>
                         </variation>
                     </view>
@@ -164,6 +176,8 @@
                         <outlet property="button7" destination="PIi-Dn-b06" id="fLH-LB-AuA"/>
                         <outlet property="button8" destination="bHd-yu-Lqo" id="ZIr-GC-FB1"/>
                         <outlet property="button9" destination="3CQ-AX-JQJ" id="bmx-K8-s02"/>
+                        <outlet property="helpButton" destination="wl3-kM-oqt" id="azJ-J2-iDK"/>
+                        <outlet property="playAgainButton" destination="BdA-Wu-rgm" id="eG7-Ap-qmW"/>
                         <outlet property="turnLabel" destination="Npa-dW-kGS" id="ZVX-hS-O5v"/>
                     </connections>
                 </viewController>
