@@ -181,9 +181,11 @@ static void *currentGameStateContext = &currentGameStateContext;
     // keep moving the label around the screen
     } else {
         self.turnLabel.center = [panGesture locationInView:self.turnLabel.superview];
+        if (canMoveToSquare) {
+            button.layer.borderWidth = 4;
+        }
     }
 }
-
 
 #pragma mark - kvo
 -(void)observeValueForKeyPath:(NSString *)keyPath
@@ -221,13 +223,6 @@ static void *currentGameStateContext = &currentGameStateContext;
         default:
             break;
     }
-}
-
--(void) pushTurnLabel {
-    UIPushBehavior *push = [[UIPushBehavior alloc] initWithItems:@[self.turnLabel] mode:UIPushBehaviorModeContinuous];
-    [push setAngle:M_PI magnitude:10.0f];
-    [self.animator addBehavior:push];
-    push.active = YES;
 }
 
 -(CGSize) getStandardButtonSize {

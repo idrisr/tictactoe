@@ -49,6 +49,7 @@
     return _winningGameStates;
 }
 
+#pragma mark - update game state
 -(void) restartGame {
     self.playerTurn = @"X";
     NSUInteger squares = self.boardSize * self.boardSize;
@@ -56,18 +57,6 @@
     self.currentGameState = GameStateEmpty;
 }
 
--(NSUInteger) getIndexFromRow:(NSUInteger) row column:(NSUInteger)column {
-    return (row - 1) * self.boardSize + (column - 1);
-}
-
--(BOOL) canUpdateBoardAtRow:(NSUInteger) row atColumn:(NSUInteger) column {
-    if (row > self.boardSize || column > self.boardSize) {
-        return NO;
-    }
-    NSUInteger index = [self getIndexFromRow:row column:column];
-    BOOL isBlankAtIndex = [[self.boardState substringWithRange:NSMakeRange(index, 1)] isEqualToString:@" "];
-    return isBlankAtIndex;
-}
 
 -(void) updateBoardForCurrentPlayerAtRow:(NSUInteger) row
                                 atColumn:(NSUInteger) column {
@@ -102,6 +91,19 @@
     };
 }
 
+#pragma - check game conditions
+-(NSUInteger) getIndexFromRow:(NSUInteger) row column:(NSUInteger)column {
+    return (row - 1) * self.boardSize + (column - 1);
+}
+
+-(BOOL) canUpdateBoardAtRow:(NSUInteger) row atColumn:(NSUInteger) column {
+    if (row > self.boardSize || column > self.boardSize) {
+        return NO;
+    }
+    NSUInteger index = [self getIndexFromRow:row column:column];
+    BOOL isBlankAtIndex = [[self.boardState substringWithRange:NSMakeRange(index, 1)] isEqualToString:@" "];
+    return isBlankAtIndex;
+}
 -(BOOL) didCurrentPlayerWin {
     NSArray *winningGameStates = [self winningGameStates];
     BOOL __block didWin = NO;
@@ -136,7 +138,6 @@
 }
 
 -(BOOL) isGameTied {
-    // check count of blank spaces, if zero, board full and no win
     return ([self boardFull] && ![self didCurrentPlayerWin]);
 }
 
