@@ -36,8 +36,6 @@ typedef NS_ENUM (NSUInteger, ViewCorner){
 @property CGPoint turnLabelStartPoint;
 @property (weak, nonatomic) IBOutlet UIButton *playAgainButton;
 @property (weak, nonatomic) IBOutlet UIButton *helpButton;
-
--(void) layoutBoard;
 @end
 
 static void *playerTurnContext = &playerTurnContext;
@@ -47,27 +45,6 @@ static void *currentGameStateContext = &currentGameStateContext;
 @implementation GameViewController
 
 #pragma mark - view life cycle
-
--(NSDictionary <NSNumber*, NSValue* > *)viewPositions{
-    // dict of form tag#:CGPoint wrapped in NSValue
-    static NSMutableDictionary *_viewPositions;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        // do progamatically for variable sized boards
-        _viewPositions = [NSMutableDictionary new];
-        for (UIView *view in self.view.subviews) {
-            long tag = view.tag;
-            if (tag == 0){
-                continue;
-            }
-            [_viewPositions setObject:[NSValue valueWithCGPoint:view.center]
-                               forKey:[NSNumber numberWithLong:tag]];
-
-        }
-    });
-    return [NSDictionary dictionaryWithDictionary:_viewPositions];
-}
-
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 
@@ -138,24 +115,12 @@ static void *currentGameStateContext = &currentGameStateContext;
                          context:currentGameStateContext];
 }
 
-
+#pragma mark - segues
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     [[self navigationController] setNavigationBarHidden:NO];
 }
 
 
--(NSInteger) buttonThatIntersectsWithView:(UIView *) view {
-    NSInteger __block buttonTag = -1;
-    [self.buttonArray enumerateObjectsWithOptions:NSEnumerationConcurrent
-                                       usingBlock:^(UIButton * _Nonnull button, NSUInteger idx, BOOL * _Nonnull stop) {
-                                           BOOL intersect = CGRectIntersectsRect(self.turnLabel.frame, button.frame);
-                                           if (intersect) {
-                                                buttonTag = button.tag;
-                                                *stop = YES;
-                                           }
-                                       }];
-    return buttonTag;
-}
 
 -(void) moveObject:(UIPanGestureRecognizer *)panGesture{
     if (panGesture.state == UIGestureRecognizerStateEnded) {
@@ -223,6 +188,117 @@ static void *currentGameStateContext = &currentGameStateContext;
     }
 }
 
+#pragma mark - IBActions
+-(IBAction) onButtonTapped:(UIButton*)button {
+    NSArray *rowCol = [self getBoardIndexesFromButton:button];
+    NSUInteger row = [[rowCol firstObject]integerValue];
+    NSUInteger col = [[rowCol lastObject]integerValue];
+    [self.gameEngine updateBoardForCurrentPlayerAtRow:row atColumn:col];
+}
+
+- (IBAction)playAgain:(UIButton *)sender {
+    self.playAgainButton.hidden = YES;
+    [self layoutBoard];
+    [self.animator removeAllBehaviors];
+    [self.animator addBehavior:self.snapBehavior];
+
+    // snap all the views back to where they originally were
+    NSDictionary *origViewPositions = [self viewPositions];
+    NSArray *keys = [origViewPositions allKeys];
+    [keys enumerateObjectsWithOptions:0
+                           usingBlock:^(id  _Nonnull key, NSUInteger idx, BOOL * _Nonnull stop) {
+                               NSUInteger tag = [key integerValue];
+                               NSValue *obj = [origViewPositions objectForKey:key];
+                               CGPoint point = [obj CGPointValue];
+                               UIView *view = [self.view viewWithTag:tag];
+                               UISnapBehavior *snap = [[UISnapBehavior alloc] initWithItem:view snapToPoint:point];
+                               snap.damping = 0.9f;
+                               [self.animator addBehavior:snap];
+                               [self.animator updateItemUsingCurrentState:view];
+                           }];
+    [self.gameEngine restartGame];
+}
+
+#pragma mark - private methods
+-(NSInteger) buttonThatIntersectsWithView:(UIView *) view {
+    NSInteger __block buttonTag = -1;
+    [self.buttonArray enumerateObjectsWithOptions:NSEnumerationConcurrent
+                                       usingBlock:^(UIButton * _Nonnull button, NSUInteger idx, BOOL * _Nonnull stop) {
+                                           BOOL intersect = CGRectIntersectsRect(self.turnLabel.frame, button.frame);
+                                           if (intersect) {
+                                                buttonTag = button.tag;
+                                                *stop = YES;
+                                           }
+                                       }];
+    return buttonTag;
+}
+
+-(void) updateTurnLabel {
+    self.turnLabel.text = self.gameEngine.playerTurn;
+    self.turnLabel.textColor = [self.gameEngine.playerTurn isEqualToString:@"O"] ? [UIColor green] : [UIColor plum];
+}
+
+-(NSArray*) getBoardIndexesFromButton:(UIButton *) button {
+    NSUInteger tag = button.tag;
+    NSUInteger index = tag / 10;
+    NSUInteger row = ((index - 1) / 3) + 1;
+    NSUInteger column = ((tag - 1) % self.gameEngine.boardSize) + 1;
+    return @[@(row), @(column)];
+}
+
+-(CGPoint) pointForCorner:(ViewCorner)corner
+                  forView:(UIView *) view {
+    CGFloat x = 0;
+    CGFloat y = 0;
+    CGRect rect = view.frame;
+    switch (corner) {
+        case ViewCornerTopLeft:
+            x = rect.origin.x;
+            y = rect.origin.y;
+            break;
+
+        case ViewCornerTopRight:
+            x = rect.origin.x + rect.size.width;
+            y = rect.origin.y;
+            break;
+
+        case ViewCornerBottomLeft:
+            x = rect.origin.x;
+            y = rect.origin.y + rect.size.height;
+            break;
+
+        case ViewCornerBottomRight:
+            x = rect.origin.x + rect.size.width;
+            y = rect.origin.y + rect.size.height;
+            break;
+
+        default:
+            x = 0;
+            y = 0;
+    }
+    return CGPointMake(x, y);
+}
+
+-(NSDictionary <NSNumber*, NSValue* > *)viewPositions{
+    // dict of form tag#:CGPoint wrapped in NSValue
+    static NSMutableDictionary *_viewPositions;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        // do progamatically for variable sized boards
+        _viewPositions = [NSMutableDictionary new];
+        for (UIView *view in self.view.subviews) {
+            long tag = view.tag;
+            if (tag == 0){
+                continue;
+            }
+            [_viewPositions setObject:[NSValue valueWithCGPoint:view.center]
+                               forKey:[NSNumber numberWithLong:tag]];
+
+        }
+    });
+    return [NSDictionary dictionaryWithDictionary:_viewPositions];
+}
+
 -(void) pushTurnLabel {
     UIPushBehavior *push = [[UIPushBehavior alloc] initWithItems:@[self.turnLabel] mode:UIPushBehaviorModeContinuous];
     [push setAngle:M_PI magnitude:10.0f];
@@ -287,39 +363,6 @@ static void *currentGameStateContext = &currentGameStateContext;
     [self presentViewController:alert animated:YES completion:nil];
 }
 
--(CGPoint) pointForCorner:(ViewCorner)corner
-                  forView:(UIView *) view {
-    CGFloat x = 0;
-    CGFloat y = 0;
-    CGRect rect = view.frame;
-    switch (corner) {
-        case ViewCornerTopLeft:
-            x = rect.origin.x;
-            y = rect.origin.y;
-            break;
-
-        case ViewCornerTopRight:
-            x = rect.origin.x + rect.size.width;
-            y = rect.origin.y;
-            break;
-
-        case ViewCornerBottomLeft:
-            x = rect.origin.x;
-            y = rect.origin.y + rect.size.height;
-            break;
-
-        case ViewCornerBottomRight:
-            x = rect.origin.x + rect.size.width;
-            y = rect.origin.y + rect.size.height;
-            break;
-
-        default:
-            x = 0;
-            y = 0;
-    }
-    return CGPointMake(x, y);
-}
-
 
 -(void) layoutBoard {
     self.turnLabel.text = self.gameEngine.playerTurn;
@@ -359,49 +402,7 @@ static void *currentGameStateContext = &currentGameStateContext;
     }];
 }
 
--(void) updateTurnLabel {
-    self.turnLabel.text = self.gameEngine.playerTurn;
-    self.turnLabel.textColor = [self.gameEngine.playerTurn isEqualToString:@"O"] ? [UIColor green] : [UIColor plum];
-}
-
--(NSArray*) getBoardIndexesFromButton:(UIButton *) button {
-    NSUInteger tag = button.tag;
-    NSUInteger index = tag / 10;
-    NSUInteger row = ((index - 1) / 3) + 1;
-    NSUInteger column = ((tag - 1) % self.gameEngine.boardSize) + 1;
-    return @[@(row), @(column)];
-}
-
--(IBAction) onButtonTapped:(UIButton*)button {
-    NSArray *rowCol = [self getBoardIndexesFromButton:button];
-    NSUInteger row = [[rowCol firstObject]integerValue];
-    NSUInteger col = [[rowCol lastObject]integerValue];
-    [self.gameEngine updateBoardForCurrentPlayerAtRow:row atColumn:col];
-}
-
-- (IBAction)playAgain:(UIButton *)sender {
-    self.playAgainButton.hidden = YES;
-    [self layoutBoard];
-    [self.animator removeAllBehaviors];
-    [self.animator addBehavior:self.snapBehavior];
-
-    // snap all the views back to where they originally were
-    NSDictionary *origViewPositions = [self viewPositions];
-    NSArray *keys = [origViewPositions allKeys];
-    [keys enumerateObjectsWithOptions:0
-                           usingBlock:^(id  _Nonnull key, NSUInteger idx, BOOL * _Nonnull stop) {
-                               NSUInteger tag = [key integerValue];
-                               NSValue *obj = [origViewPositions objectForKey:key];
-                               CGPoint point = [obj CGPointValue];
-                               UIView *view = [self.view viewWithTag:tag];
-                               UISnapBehavior *snap = [[UISnapBehavior alloc] initWithItem:view snapToPoint:point];
-                               snap.damping = 0.9f;
-                               [self.animator addBehavior:snap];
-                               [self.animator updateItemUsingCurrentState:view];
-                           }];
-    [self.gameEngine restartGame];
-}
-
+#pragma mark - memory management
 -(void)dealloc {
     [self removeObserver:self.gameEngine forKeyPath:NSStringFromSelector(@selector(playerTurn)) context:playerTurnContext];
     [self removeObserver:self.gameEngine forKeyPath:NSStringFromSelector(@selector(boardState)) context:boardStateContext];
