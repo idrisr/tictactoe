@@ -36,8 +36,6 @@ typedef NS_ENUM (NSUInteger, ViewCorner){
 @property CGPoint turnLabelStartPoint;
 @property (weak, nonatomic) IBOutlet UIButton *playAgainButton;
 @property (weak, nonatomic) IBOutlet UIButton *helpButton;
-
--(void) layoutBoard;
 @end
 
 static void *playerTurnContext = &playerTurnContext;
@@ -47,27 +45,6 @@ static void *currentGameStateContext = &currentGameStateContext;
 @implementation GameViewController
 
 #pragma mark - view life cycle
-
--(NSDictionary <NSNumber*, NSValue* > *)viewPositions{
-    // dict of form tag#:CGPoint wrapped in NSValue
-    static NSMutableDictionary *_viewPositions;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        // do progamatically for variable sized boards
-        _viewPositions = [NSMutableDictionary new];
-        for (UIView *view in self.view.subviews) {
-            long tag = view.tag;
-            if (tag == 0){
-                continue;
-            }
-            [_viewPositions setObject:[NSValue valueWithCGPoint:view.center]
-                               forKey:[NSNumber numberWithLong:tag]];
-
-        }
-    });
-    return [NSDictionary dictionaryWithDictionary:_viewPositions];
-}
-
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 
@@ -138,54 +115,13 @@ static void *currentGameStateContext = &currentGameStateContext;
                          context:currentGameStateContext];
 }
 
-
+#pragma mark - segues
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     [[self navigationController] setNavigationBarHidden:NO];
 }
 
 
--(NSInteger) buttonThatIntersectsWithView:(UIView *) view {
-    NSInteger __block buttonTag = -1;
-    [self.buttonArray enumerateObjectsWithOptions:NSEnumerationConcurrent
-                                       usingBlock:^(UIButton * _Nonnull button, NSUInteger idx, BOOL * _Nonnull stop) {
-                                           BOOL intersect = CGRectIntersectsRect(self.turnLabel.frame, button.frame);
-                                           if (intersect) {
-                                                buttonTag = button.tag;
-                                                *stop = YES;
-                                           }
-                                       }];
-    return buttonTag;
-}
 
--(void) moveObject:(UIPanGestureRecognizer *)panGesture{
-    if (panGesture.state == UIGestureRecognizerStateEnded) {
-        NSInteger tagIntersect = [self buttonThatIntersectsWithView:self.turnLabel];
-        BOOL doesIntersect = tagIntersect != -1;
-        UIButton *button = nil;
-        if (doesIntersect) {
-            button = [self.view viewWithTag:tagIntersect];
-        }
-        NSArray *rowCol = [self getBoardIndexesFromButton:button];
-        NSUInteger row = [[rowCol firstObject] integerValue];
-        NSUInteger col = [[rowCol lastObject] integerValue];
-
-        BOOL canMoveToSquare = [self.gameEngine canUpdateBoardAtRow:row atColumn:col];
-
-        // if label location on one of the squares AND can update that square for current game state
-        if (canMoveToSquare && tagIntersect) {
-            // tell the board that a move was made on that square
-            [self.gameEngine updateBoardForCurrentPlayerAtRow:row atColumn:col];
-        }
-        // snap it back to where it was
-        [self.animator updateItemUsingCurrentState:self.turnLabel];
-    // keep moving the label around the screen
-    } else {
-        self.turnLabel.center = [panGesture locationInView:self.turnLabel.superview];
-        if (canMoveToSquare) {
-            button.layer.borderWidth = 4;
-        }
-    }
-}
 
 #pragma mark - kvo
 -(void)observeValueForKeyPath:(NSString *)keyPath
@@ -225,61 +161,62 @@ static void *currentGameStateContext = &currentGameStateContext;
     }
 }
 
--(CGSize) getStandardButtonSize {
-    UIButton *button = (UIButton *)[self.view viewWithTag:10];
-    return button.bounds.size;
+#pragma mark - IBActions
+-(IBAction) onButtonTapped:(UIButton*)button {
+    NSArray *rowCol = [self getBoardIndexesFromButton:button];
+    NSUInteger row = [[rowCol firstObject]integerValue];
+    NSUInteger col = [[rowCol lastObject]integerValue];
+    [self.gameEngine updateBoardForCurrentPlayerAtRow:row atColumn:col];
 }
 
--(void) showAlertGameOver {
-    NSString *title = nil;
-    if (self.gameEngine.currentGameState == GameStateWon) {
-        title = [NSString stringWithFormat:@"Player %@ Won!", self.gameEngine.playerTurn];
-    } else if (self.gameEngine.currentGameState == GameStateTied) {
-        title = @"Game Tied";
-    }
+- (IBAction)playAgain:(UIButton *)sender {
+    self.playAgainButton.hidden = YES;
+    [self layoutBoard];
+    [self.animator removeAllBehaviors];
+    [self.animator addBehavior:self.snapBehavior];
 
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title
-                                                                   message:@""
-                                                            preferredStyle:UIAlertControllerStyleActionSheet];
+    // snap all the views back to where they originally were
+    NSDictionary *origViewPositions = [self viewPositions];
+    NSArray *keys = [origViewPositions allKeys];
+    [keys enumerateObjectsWithOptions:0
+                           usingBlock:^(id  _Nonnull key, NSUInteger idx, BOOL * _Nonnull stop) {
+                               NSUInteger tag = [key integerValue];
+                               NSValue *obj = [origViewPositions objectForKey:key];
+                               CGPoint point = [obj CGPointValue];
+                               UIView *view = [self.view viewWithTag:tag];
+                               UISnapBehavior *snap = [[UISnapBehavior alloc] initWithItem:view snapToPoint:point];
+                               snap.damping = 0.9f;
+                               [self.animator addBehavior:snap];
+                               [self.animator updateItemUsingCurrentState:view];
+                           }];
+    [self.gameEngine restartGame];
+}
 
-    UIAlertAction *actionAlert = [UIAlertAction actionWithTitle:@"Play Again"
-                                                        style:UIAlertActionStyleDefault
-                                                      handler:^(UIAlertAction * _Nonnull action) {
-                                                          [self.animator removeAllBehaviors];
-                                                          NSArray *nonButtonItems = @[self.turnLabel, self.playAgainButton, self.helpButton];
-                                                          NSArray *dynamicItems = [self.buttonArray arrayByAddingObjectsFromArray:nonButtonItems];
-                                                          [self.playAgainButton setHidden:NO];
+#pragma mark - private methods
+-(NSInteger) buttonThatIntersectsWithView:(UIView *) view {
+    NSInteger __block buttonTag = -1;
+    [self.buttonArray enumerateObjectsWithOptions:NSEnumerationConcurrent
+                                       usingBlock:^(UIButton * _Nonnull button, NSUInteger idx, BOOL * _Nonnull stop) {
+                                           BOOL intersect = CGRectIntersectsRect(self.turnLabel.frame, button.frame);
+                                           if (intersect) {
+                                                buttonTag = button.tag;
+                                                *stop = YES;
+                                           }
+                                       }];
+    return buttonTag;
+}
 
-                                                          UIDynamicItemBehavior *dynamics = [[UIDynamicItemBehavior alloc] initWithItems:dynamicItems];
-                                                          dynamics.elasticity = 1.0;
-                                                          dynamics.allowsRotation = YES;
-                                                          dynamics.charge = -1.0;
+-(void) updateTurnLabel {
+    self.turnLabel.text = self.gameEngine.playerTurn;
+    self.turnLabel.textColor = [self.gameEngine.playerTurn isEqualToString:@"O"] ? [UIColor green] : [UIColor plum];
+}
 
-                                                          UIGravityBehavior *gravity = [[UIGravityBehavior alloc] initWithItems:dynamicItems];
-                                                          UICollisionBehavior *collision = [[UICollisionBehavior alloc] initWithItems:dynamicItems];
-
-                                                          CGPoint topLeft = [self pointForCorner:ViewCornerTopLeft forView:self.view];
-                                                          CGPoint topRight = [self pointForCorner:ViewCornerTopRight forView:self.view];
-                                                          CGPoint bottomLeft = [self pointForCorner:ViewCornerBottomLeft forView:self.view];
-                                                          CGPoint bottomRight = [self pointForCorner:ViewCornerBottomRight forView:self.view];
-
-                                                          [collision addBoundaryWithIdentifier:@"left" fromPoint:topLeft toPoint:bottomLeft];
-                                                          [collision addBoundaryWithIdentifier:@"bottom" fromPoint:bottomLeft toPoint:bottomRight];
-                                                          [collision addBoundaryWithIdentifier:@"right" fromPoint:topRight toPoint:bottomRight];
-                                                          [collision addBoundaryWithIdentifier:@"top" fromPoint:topLeft toPoint:topRight];
-
-                                                          [self.animator addBehavior:gravity];
-                                                          [self.animator addBehavior:collision];
-                                                          [self.animator addBehavior:dynamics];
-                                                          [self.animator addBehavior:self.snapBehavior];
-                                                          [dynamicItems enumerateObjectsWithOptions:NSEnumerationConcurrent
-                                                                                             usingBlock:^(UIButton * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                                                                                                 [self.animator updateItemUsingCurrentState:obj];
-                                                                                             }];
-                                                      }];
-
-    [alert addAction:actionAlert];
-    [self presentViewController:alert animated:YES completion:nil];
+-(NSArray*) getBoardIndexesFromButton:(UIButton *) button {
+    NSUInteger tag = button.tag;
+    NSUInteger index = tag / 10;
+    NSUInteger row = ((index - 1) / self.gameEngine.boardSize) + 1;
+    NSUInteger column = ((tag - 1) % self.gameEngine.boardSize) + 1;
+    return @[@(row), @(column)];
 }
 
 -(CGPoint) pointForCorner:(ViewCorner)corner
@@ -313,6 +250,78 @@ static void *currentGameStateContext = &currentGameStateContext;
             y = 0;
     }
     return CGPointMake(x, y);
+}
+
+-(NSDictionary <NSNumber*, NSValue* > *)viewPositions{
+    // dict of form tag#:CGPoint wrapped in NSValue
+    static NSMutableDictionary *_viewPositions;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        // do progamatically for variable sized boards
+        _viewPositions = [NSMutableDictionary new];
+        for (UIView *view in self.view.subviews) {
+            long tag = view.tag;
+            if (tag == 0){
+                continue;
+            }
+            [_viewPositions setObject:[NSValue valueWithCGPoint:view.center]
+                               forKey:[NSNumber numberWithLong:tag]];
+
+        }
+    });
+    return [NSDictionary dictionaryWithDictionary:_viewPositions];
+}
+
+
+-(void) showAlertGameOver {
+    NSString *title = nil;
+    if (self.gameEngine.currentGameState == GameStateWon) {
+        title = [NSString stringWithFormat:@"Player %@ Won!", self.gameEngine.playerTurn];
+    } else if (self.gameEngine.currentGameState == GameStateTied) {
+        title = @"Game Tied";
+    }
+
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title
+                                                                   message:@""
+                                                            preferredStyle:UIAlertControllerStyleActionSheet];
+
+    UIAlertAction *actionAlert = [UIAlertAction actionWithTitle:@"Play Again"
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction * _Nonnull action) {
+                                                          [self.animator removeAllBehaviors];
+                                                          NSArray *nonButtonItems = @[self.turnLabel, self.playAgainButton, self.helpButton];
+                                                          NSArray *dynamicItems = [self.buttonArray arrayByAddingObjectsFromArray:nonButtonItems];
+                                                          [self.playAgainButton setHidden:NO];
+
+                                                          UIDynamicItemBehavior *dynamics = [[UIDynamicItemBehavior alloc] initWithItems:dynamicItems];
+                                                          dynamics.elasticity = 1.0;
+                                                          dynamics.allowsRotation = YES;
+
+                                                          UIGravityBehavior *gravity = [[UIGravityBehavior alloc] initWithItems:dynamicItems];
+                                                          UICollisionBehavior *collision = [[UICollisionBehavior alloc] initWithItems:dynamicItems];
+
+                                                          CGPoint topLeft = [self pointForCorner:ViewCornerTopLeft forView:self.view];
+                                                          CGPoint topRight = [self pointForCorner:ViewCornerTopRight forView:self.view];
+                                                          CGPoint bottomLeft = [self pointForCorner:ViewCornerBottomLeft forView:self.view];
+                                                          CGPoint bottomRight = [self pointForCorner:ViewCornerBottomRight forView:self.view];
+
+                                                          [collision addBoundaryWithIdentifier:@"left" fromPoint:topLeft toPoint:bottomLeft];
+                                                          [collision addBoundaryWithIdentifier:@"bottom" fromPoint:bottomLeft toPoint:bottomRight];
+                                                          [collision addBoundaryWithIdentifier:@"right" fromPoint:topRight toPoint:bottomRight];
+                                                          [collision addBoundaryWithIdentifier:@"top" fromPoint:topLeft toPoint:topRight];
+
+                                                          [self.animator addBehavior:gravity];
+                                                          [self.animator addBehavior:collision];
+                                                          [self.animator addBehavior:dynamics];
+                                                          [self.animator addBehavior:self.snapBehavior];
+                                                          [dynamicItems enumerateObjectsWithOptions:NSEnumerationConcurrent
+                                                                                             usingBlock:^(UIButton * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                                                                                                 [self.animator updateItemUsingCurrentState:obj];
+                                                                                             }];
+                                                      }];
+
+    [alert addAction:actionAlert];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 
@@ -354,49 +363,38 @@ static void *currentGameStateContext = &currentGameStateContext;
     }];
 }
 
--(void) updateTurnLabel {
-    self.turnLabel.text = self.gameEngine.playerTurn;
-    self.turnLabel.textColor = [self.gameEngine.playerTurn isEqualToString:@"O"] ? [UIColor green] : [UIColor plum];
+-(void) moveObject:(UIPanGestureRecognizer *)panGesture{
+    if (panGesture.state == UIGestureRecognizerStateEnded) {
+        NSInteger tagIntersect = [self buttonThatIntersectsWithView:self.turnLabel];
+        BOOL doesIntersect = tagIntersect != -1;
+        UIButton *button = nil;
+        NSUInteger row = 0 , col = 0;
+        BOOL canMoveToSquare = NO;
+        if (doesIntersect) {
+            button = [self.view viewWithTag:tagIntersect];
+            NSArray *rowCol = [self getBoardIndexesFromButton:button];
+            row = [[rowCol firstObject] integerValue];
+            col = [[rowCol lastObject] integerValue];
+            canMoveToSquare = [self.gameEngine canUpdateBoardAtRow:row atColumn:col];
+
+            // if label location on one of the squares AND can update that square for current game state
+            if (canMoveToSquare && tagIntersect) {
+                // tell the board that a move was made on that square
+                [self.gameEngine updateBoardForCurrentPlayerAtRow:row atColumn:col];
+            }
+        }
+
+        // always snap back to where it was. If it's a valid move, the turnLabel
+        // will change symbols
+        [self.animator updateItemUsingCurrentState:self.turnLabel];
+    // keep moving the label around the screen
+    } else {
+        self.turnLabel.center = [panGesture locationInView:self.turnLabel.superview];
+    }
 }
 
--(NSArray*) getBoardIndexesFromButton:(UIButton *) button {
-    NSUInteger tag = button.tag;
-    NSUInteger index = tag / 10;
-    NSUInteger row = ((index - 1) / 3) + 1;
-    NSUInteger column = ((tag - 1) % self.gameEngine.boardSize) + 1;
-    return @[@(row), @(column)];
-}
 
--(IBAction) onButtonTapped:(UIButton*)button {
-    NSArray *rowCol = [self getBoardIndexesFromButton:button];
-    NSUInteger row = [[rowCol firstObject]integerValue];
-    NSUInteger col = [[rowCol lastObject]integerValue];
-    [self.gameEngine updateBoardForCurrentPlayerAtRow:row atColumn:col];
-}
-
-- (IBAction)playAgain:(UIButton *)sender {
-    self.playAgainButton.hidden = YES;
-    [self layoutBoard];
-    [self.animator removeAllBehaviors];
-    [self.animator addBehavior:self.snapBehavior];
-
-    // snap all the views back to where they originally were
-    NSDictionary *origViewPositions = [self viewPositions];
-    NSArray *keys = [origViewPositions allKeys];
-    [keys enumerateObjectsWithOptions:0
-                           usingBlock:^(id  _Nonnull key, NSUInteger idx, BOOL * _Nonnull stop) {
-                               NSUInteger tag = [key integerValue];
-                               NSValue *obj = [origViewPositions objectForKey:key];
-                               CGPoint point = [obj CGPointValue];
-                               UIView *view = [self.view viewWithTag:tag];
-                               UISnapBehavior *snap = [[UISnapBehavior alloc] initWithItem:view snapToPoint:point];
-                               snap.damping = 0.9f;
-                               [self.animator addBehavior:snap];
-                               [self.animator updateItemUsingCurrentState:view];
-                           }];
-    [self.gameEngine restartGame];
-}
-
+#pragma mark - memory management
 -(void)dealloc {
     [self removeObserver:self.gameEngine forKeyPath:NSStringFromSelector(@selector(playerTurn)) context:playerTurnContext];
     [self removeObserver:self.gameEngine forKeyPath:NSStringFromSelector(@selector(boardState)) context:boardStateContext];
