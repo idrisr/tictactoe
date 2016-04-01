@@ -368,20 +368,23 @@ static void *currentGameStateContext = &currentGameStateContext;
         NSInteger tagIntersect = [self buttonThatIntersectsWithView:self.turnLabel];
         BOOL doesIntersect = tagIntersect != -1;
         UIButton *button = nil;
+        NSUInteger row = 0 , col = 0;
+        BOOL canMoveToSquare = NO;
         if (doesIntersect) {
             button = [self.view viewWithTag:tagIntersect];
-        }
-        NSArray *rowCol = [self getBoardIndexesFromButton:button];
-        NSUInteger row = [[rowCol firstObject] integerValue];
-        NSUInteger col = [[rowCol lastObject] integerValue];
+            NSArray *rowCol = [self getBoardIndexesFromButton:button];
+            row = [[rowCol firstObject] integerValue];
+            col = [[rowCol lastObject] integerValue];
+            canMoveToSquare = [self.gameEngine canUpdateBoardAtRow:row atColumn:col];
 
-        BOOL canMoveToSquare = [self.gameEngine canUpdateBoardAtRow:row atColumn:col];
-
-        // if label location on one of the squares AND can update that square for current game state
-        if (canMoveToSquare && tagIntersect) {
-            // tell the board that a move was made on that square
-            [self.gameEngine updateBoardForCurrentPlayerAtRow:row atColumn:col];
+            // if label location on one of the squares AND can update that square for current game state
+            if (canMoveToSquare && tagIntersect) {
+                // tell the board that a move was made on that square
+                [self.gameEngine updateBoardForCurrentPlayerAtRow:row atColumn:col];
+            }
         }
+
+
         // snap it back to where it was
         [self.animator updateItemUsingCurrentState:self.turnLabel];
     // keep moving the label around the screen
