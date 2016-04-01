@@ -384,8 +384,8 @@ static void *currentGameStateContext = &currentGameStateContext;
             }
         }
 
-
-        // snap it back to where it was
+        // always snap back to where it was. If it's a valid move, the turnLabel
+        // will change symbols
         [self.animator updateItemUsingCurrentState:self.turnLabel];
     // keep moving the label around the screen
     } else {
