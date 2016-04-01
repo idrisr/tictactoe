@@ -122,33 +122,6 @@ static void *currentGameStateContext = &currentGameStateContext;
 
 
 
--(void) moveObject:(UIPanGestureRecognizer *)panGesture{
-    if (panGesture.state == UIGestureRecognizerStateEnded) {
-        NSInteger tagIntersect = [self buttonThatIntersectsWithView:self.turnLabel];
-        BOOL doesIntersect = tagIntersect != -1;
-        UIButton *button = nil;
-        if (doesIntersect) {
-            button = [self.view viewWithTag:tagIntersect];
-        }
-        NSArray *rowCol = [self getBoardIndexesFromButton:button];
-        NSUInteger row = [[rowCol firstObject] integerValue];
-        NSUInteger col = [[rowCol lastObject] integerValue];
-
-        BOOL canMoveToSquare = [self.gameEngine canUpdateBoardAtRow:row atColumn:col];
-
-        // if label location on one of the squares AND can update that square for current game state
-        if (canMoveToSquare && tagIntersect) {
-            // tell the board that a move was made on that square
-            [self.gameEngine updateBoardForCurrentPlayerAtRow:row atColumn:col];
-        }
-        // snap it back to where it was
-        [self.animator updateItemUsingCurrentState:self.turnLabel];
-    // keep moving the label around the screen
-    } else {
-        self.turnLabel.center = [panGesture locationInView:self.turnLabel.superview];
-    }
-}
-
 
 #pragma mark - kvo
 -(void)observeValueForKeyPath:(NSString *)keyPath
@@ -299,18 +272,6 @@ static void *currentGameStateContext = &currentGameStateContext;
     return [NSDictionary dictionaryWithDictionary:_viewPositions];
 }
 
--(void) pushTurnLabel {
-    UIPushBehavior *push = [[UIPushBehavior alloc] initWithItems:@[self.turnLabel] mode:UIPushBehaviorModeContinuous];
-    [push setAngle:M_PI magnitude:10.0f];
-    [self.animator addBehavior:push];
-    push.active = YES;
-}
-
--(CGSize) getStandardButtonSize {
-    UIButton *button = (UIButton *)[self.view viewWithTag:10];
-    return button.bounds.size;
-}
-
 -(void) showAlertGameOver {
     NSString *title = nil;
     if (self.gameEngine.currentGameState == GameStateWon) {
@@ -401,6 +362,34 @@ static void *currentGameStateContext = &currentGameStateContext;
         button.layer.borderColor = buttonColor.CGColor;
     }];
 }
+
+-(void) moveObject:(UIPanGestureRecognizer *)panGesture{
+    if (panGesture.state == UIGestureRecognizerStateEnded) {
+        NSInteger tagIntersect = [self buttonThatIntersectsWithView:self.turnLabel];
+        BOOL doesIntersect = tagIntersect != -1;
+        UIButton *button = nil;
+        if (doesIntersect) {
+            button = [self.view viewWithTag:tagIntersect];
+        }
+        NSArray *rowCol = [self getBoardIndexesFromButton:button];
+        NSUInteger row = [[rowCol firstObject] integerValue];
+        NSUInteger col = [[rowCol lastObject] integerValue];
+
+        BOOL canMoveToSquare = [self.gameEngine canUpdateBoardAtRow:row atColumn:col];
+
+        // if label location on one of the squares AND can update that square for current game state
+        if (canMoveToSquare && tagIntersect) {
+            // tell the board that a move was made on that square
+            [self.gameEngine updateBoardForCurrentPlayerAtRow:row atColumn:col];
+        }
+        // snap it back to where it was
+        [self.animator updateItemUsingCurrentState:self.turnLabel];
+    // keep moving the label around the screen
+    } else {
+        self.turnLabel.center = [panGesture locationInView:self.turnLabel.superview];
+    }
+}
+
 
 #pragma mark - memory management
 -(void)dealloc {
