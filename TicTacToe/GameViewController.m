@@ -272,6 +272,7 @@ static void *currentGameStateContext = &currentGameStateContext;
     return [NSDictionary dictionaryWithDictionary:_viewPositions];
 }
 
+
 -(void) showAlertGameOver {
     NSString *title = nil;
     if (self.gameEngine.currentGameState == GameStateWon) {
@@ -295,7 +296,6 @@ static void *currentGameStateContext = &currentGameStateContext;
                                                           UIDynamicItemBehavior *dynamics = [[UIDynamicItemBehavior alloc] initWithItems:dynamicItems];
                                                           dynamics.elasticity = 1.0;
                                                           dynamics.allowsRotation = YES;
-                                                          dynamics.charge = -1.0;
 
                                                           UIGravityBehavior *gravity = [[UIGravityBehavior alloc] initWithItems:dynamicItems];
                                                           UICollisionBehavior *collision = [[UICollisionBehavior alloc] initWithItems:dynamicItems];
