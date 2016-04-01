@@ -214,7 +214,7 @@ static void *currentGameStateContext = &currentGameStateContext;
 -(NSArray*) getBoardIndexesFromButton:(UIButton *) button {
     NSUInteger tag = button.tag;
     NSUInteger index = tag / 10;
-    NSUInteger row = ((index - 1) / 3) + 1;
+    NSUInteger row = ((index - 1) / self.gameEngine.boardSize) + 1;
     NSUInteger column = ((tag - 1) % self.gameEngine.boardSize) + 1;
     return @[@(row), @(column)];
 }
