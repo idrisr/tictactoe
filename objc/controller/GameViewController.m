@@ -2,8 +2,8 @@
 //  ViewController.m
 //  TicTacToe
 //
-//  Created by Brandon Gress on 3/17/16.
-//  Copyright © 2016 Brandon Gress. All rights reserved.
+//  Created by Id Raja on 3/17/16.
+//  Copyright © 2016 Id Raja. All rights reserved.
 //
 
 #import "GameViewController.h"

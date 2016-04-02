@@ -3,7 +3,7 @@
 //  TicTacToe
 //
 //  Created by id on 3/19/16.
-//  Copyright © 2016 Brandon Gress. All rights reserved.
+//  Copyright © 2016 Id Raja. All rights reserved.
 //
 
 #import "TicTacToeBoard.h"

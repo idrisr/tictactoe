@@ -3,7 +3,7 @@
 //  TicTacToeSwift
 //
 //  Created by id on 4/1/16.
-//  Copyright © 2016 Brandon Gress. All rights reserved.
+//  Copyright © 2016 Id Raja. All rights reserved.
 //
 
 import UIKit
