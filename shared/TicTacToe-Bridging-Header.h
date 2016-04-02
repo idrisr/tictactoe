@@ -9,5 +9,6 @@
 #ifndef TicTacToe_Bridging_Header_h
 #define TicTacToe_Bridging_Header_h
 
+#import "TicTacToeBoard.h"
 
 #endif /* TicTacToe_Bridging_Header_h */
