@@ -88,7 +88,6 @@ static void *currentGameStateContext = &currentGameStateContext;
     self.playAgainButton.layer.borderColor = [UIColor lightBlue].CGColor;
     self.playAgainButton.titleLabel.textColor = [UIColor lightBlue];
     self.playAgainButton.titleLabel.font = [UIFont systemFontOfSize:30];
-//    self.playAgainButton.backgroundColor = [UIColor brown];
 
     // set up pan gesture
     UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(moveObject:)];
@@ -119,9 +118,6 @@ static void *currentGameStateContext = &currentGameStateContext;
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     [[self navigationController] setNavigationBarHidden:NO];
 }
-
-
-
 
 #pragma mark - kvo
 -(void)observeValueForKeyPath:(NSString *)keyPath
