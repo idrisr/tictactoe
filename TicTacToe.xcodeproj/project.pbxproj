@@ -1,445 +1,1404 @@
-// !$*UTF8*$!
-{
-	archiveVersion = 1;
-	classes = {
-	};
-	objectVersion = 46;
-	objects = {
-
-/* Begin PBXBuildFile section */
-		6803FAA51C9FA124009EC9D6 /* UIColor+CustomColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 6803FAA41C9FA124009EC9D6 /* UIColor+CustomColor.m */; };
-		686B88731C9E21E500234EC6 /* TicTacToeBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 686B88721C9E21E500234EC6 /* TicTacToeBoard.m */; };
-		686B887B1C9E27EE00234EC6 /* TicTacToeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 686B887A1C9E27EE00234EC6 /* TicTacToeTests.m */; };
-		68DB8DD11C9F4012003F58D6 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68DB8DD01C9F4012003F58D6 /* WebViewController.m */; };
-		A6BD1BEE1C9B3AE000EC899A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BD1BED1C9B3AE000EC899A /* main.m */; };
-		A6BD1BF11C9B3AE000EC899A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BD1BF01C9B3AE000EC899A /* AppDelegate.m */; };
-		A6BD1BF41C9B3AE000EC899A /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BD1BF31C9B3AE000EC899A /* GameViewController.m */; };
-		A6BD1BF71C9B3AE000EC899A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A6BD1BF51C9B3AE000EC899A /* Main.storyboard */; };
-		A6BD1BF91C9B3AE000EC899A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A6BD1BF81C9B3AE000EC899A /* Assets.xcassets */; };
-		A6BD1BFC1C9B3AE000EC899A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A6BD1BFA1C9B3AE000EC899A /* LaunchScreen.storyboard */; };
-/* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		686B887D1C9E27EE00234EC6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A6BD1BE11C9B3AE000EC899A /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = A6BD1BE81C9B3AE000EC899A;
-			remoteInfo = TicTacToe;
-		};
-/* End PBXContainerItemProxy section */
-
-/* Begin PBXFileReference section */
-		6803FAA31C9FA124009EC9D6 /* UIColor+CustomColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+CustomColor.h"; path = "../UIColor+CustomColor.h"; sourceTree = "<group>"; };
-		6803FAA41C9FA124009EC9D6 /* UIColor+CustomColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+CustomColor.m"; path = "../UIColor+CustomColor.m"; sourceTree = "<group>"; };
-		686B88711C9E21E500234EC6 /* TicTacToeBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TicTacToeBoard.h; sourceTree = "<group>"; };
-		686B88721C9E21E500234EC6 /* TicTacToeBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TicTacToeBoard.m; sourceTree = "<group>"; };
-		686B88781C9E27ED00234EC6 /* TicTacToeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TicTacToeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		686B887A1C9E27EE00234EC6 /* TicTacToeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TicTacToeTests.m; sourceTree = "<group>"; };
-		686B887C1C9E27EE00234EC6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		68DB8DCF1C9F4012003F58D6 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebViewController.h; path = ../WebViewController.h; sourceTree = "<group>"; };
-		68DB8DD01C9F4012003F58D6 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WebViewController.m; path = ../WebViewController.m; sourceTree = "<group>"; };
-		A6BD1BE91C9B3AE000EC899A /* TicTacToe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TicTacToe.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		A6BD1BED1C9B3AE000EC899A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		A6BD1BEF1C9B3AE000EC899A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		A6BD1BF01C9B3AE000EC899A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		A6BD1BF21C9B3AE000EC899A /* GameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
-		A6BD1BF31C9B3AE000EC899A /* GameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
-		A6BD1BF61C9B3AE000EC899A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		A6BD1BF81C9B3AE000EC899A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		A6BD1BFB1C9B3AE000EC899A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		A6BD1BFD1C9B3AE000EC899A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-/* End PBXFileReference section */
-
-/* Begin PBXFrameworksBuildPhase section */
-		686B88751C9E27ED00234EC6 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A6BD1BE61C9B3AE000EC899A /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXFrameworksBuildPhase section */
-
-/* Begin PBXGroup section */
-		686B88791C9E27EE00234EC6 /* TicTacToeTests */ = {
-			isa = PBXGroup;
-			children = (
-				686B887A1C9E27EE00234EC6 /* TicTacToeTests.m */,
-				686B887C1C9E27EE00234EC6 /* Info.plist */,
-			);
-			path = TicTacToeTests;
-			sourceTree = "<group>";
-		};
-		A6BD1BE01C9B3AE000EC899A = {
-			isa = PBXGroup;
-			children = (
-				A6BD1BEB1C9B3AE000EC899A /* TicTacToe */,
-				686B88791C9E27EE00234EC6 /* TicTacToeTests */,
-				A6BD1BEA1C9B3AE000EC899A /* Products */,
-			);
-			sourceTree = "<group>";
-		};
-		A6BD1BEA1C9B3AE000EC899A /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				A6BD1BE91C9B3AE000EC899A /* TicTacToe.app */,
-				686B88781C9E27ED00234EC6 /* TicTacToeTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		A6BD1BEB1C9B3AE000EC899A /* TicTacToe */ = {
-			isa = PBXGroup;
-			children = (
-				6803FAA31C9FA124009EC9D6 /* UIColor+CustomColor.h */,
-				6803FAA41C9FA124009EC9D6 /* UIColor+CustomColor.m */,
-				68DB8DCF1C9F4012003F58D6 /* WebViewController.h */,
-				68DB8DD01C9F4012003F58D6 /* WebViewController.m */,
-				A6BD1BEF1C9B3AE000EC899A /* AppDelegate.h */,
-				A6BD1BF01C9B3AE000EC899A /* AppDelegate.m */,
-				A6BD1BF21C9B3AE000EC899A /* GameViewController.h */,
-				686B88711C9E21E500234EC6 /* TicTacToeBoard.h */,
-				686B88721C9E21E500234EC6 /* TicTacToeBoard.m */,
-				A6BD1BF31C9B3AE000EC899A /* GameViewController.m */,
-				A6BD1BF51C9B3AE000EC899A /* Main.storyboard */,
-				A6BD1BF81C9B3AE000EC899A /* Assets.xcassets */,
-				A6BD1BFA1C9B3AE000EC899A /* LaunchScreen.storyboard */,
-				A6BD1BFD1C9B3AE000EC899A /* Info.plist */,
-				A6BD1BEC1C9B3AE000EC899A /* Supporting Files */,
-			);
-			path = TicTacToe;
-			sourceTree = "<group>";
-		};
-		A6BD1BEC1C9B3AE000EC899A /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				A6BD1BED1C9B3AE000EC899A /* main.m */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-/* End PBXGroup section */
-
-/* Begin PBXNativeTarget section */
-		686B88771C9E27ED00234EC6 /* TicTacToeTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 686B887F1C9E27EE00234EC6 /* Build configuration list for PBXNativeTarget "TicTacToeTests" */;
-			buildPhases = (
-				686B88741C9E27ED00234EC6 /* Sources */,
-				686B88751C9E27ED00234EC6 /* Frameworks */,
-				686B88761C9E27ED00234EC6 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				686B887E1C9E27EE00234EC6 /* PBXTargetDependency */,
-			);
-			name = TicTacToeTests;
-			productName = TicTacToeTests;
-			productReference = 686B88781C9E27ED00234EC6 /* TicTacToeTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		A6BD1BE81C9B3AE000EC899A /* TicTacToe */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = A6BD1C001C9B3AE000EC899A /* Build configuration list for PBXNativeTarget "TicTacToe" */;
-			buildPhases = (
-				A6BD1BE51C9B3AE000EC899A /* Sources */,
-				A6BD1BE61C9B3AE000EC899A /* Frameworks */,
-				A6BD1BE71C9B3AE000EC899A /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = TicTacToe;
-			productName = TicTacToe;
-			productReference = A6BD1BE91C9B3AE000EC899A /* TicTacToe.app */;
-			productType = "com.apple.product-type.application";
-		};
-/* End PBXNativeTarget section */
-
-/* Begin PBXProject section */
-		A6BD1BE11C9B3AE000EC899A /* Project object */ = {
-			isa = PBXProject;
-			attributes = {
-				KnownAssetTags = (
-					10,
-				);
-				LastUpgradeCheck = 0720;
-				ORGANIZATIONNAME = "Brandon Gress";
-				TargetAttributes = {
-					686B88771C9E27ED00234EC6 = {
-						CreatedOnToolsVersion = 7.2.1;
-						TestTargetID = A6BD1BE81C9B3AE000EC899A;
-					};
-					A6BD1BE81C9B3AE000EC899A = {
-						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = 66B8D6X2BX;
-					};
-				};
-			};
-			buildConfigurationList = A6BD1BE41C9B3AE000EC899A /* Build configuration list for PBXProject "TicTacToe" */;
-			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
-			hasScannedForEncodings = 0;
-			knownRegions = (
-				en,
-				Base,
-			);
-			mainGroup = A6BD1BE01C9B3AE000EC899A;
-			productRefGroup = A6BD1BEA1C9B3AE000EC899A /* Products */;
-			projectDirPath = "";
-			projectRoot = "";
-			targets = (
-				A6BD1BE81C9B3AE000EC899A /* TicTacToe */,
-				686B88771C9E27ED00234EC6 /* TicTacToeTests */,
-			);
-		};
-/* End PBXProject section */
-
-/* Begin PBXResourcesBuildPhase section */
-		686B88761C9E27ED00234EC6 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A6BD1BE71C9B3AE000EC899A /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A6BD1BFC1C9B3AE000EC899A /* LaunchScreen.storyboard in Resources */,
-				A6BD1BF91C9B3AE000EC899A /* Assets.xcassets in Resources */,
-				A6BD1BF71C9B3AE000EC899A /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXResourcesBuildPhase section */
-
-/* Begin PBXSourcesBuildPhase section */
-		686B88741C9E27ED00234EC6 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				686B887B1C9E27EE00234EC6 /* TicTacToeTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A6BD1BE51C9B3AE000EC899A /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				686B88731C9E21E500234EC6 /* TicTacToeBoard.m in Sources */,
-				68DB8DD11C9F4012003F58D6 /* WebViewController.m in Sources */,
-				A6BD1BF41C9B3AE000EC899A /* GameViewController.m in Sources */,
-				A6BD1BF11C9B3AE000EC899A /* AppDelegate.m in Sources */,
-				6803FAA51C9FA124009EC9D6 /* UIColor+CustomColor.m in Sources */,
-				A6BD1BEE1C9B3AE000EC899A /* main.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		686B887E1C9E27EE00234EC6 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = A6BD1BE81C9B3AE000EC899A /* TicTacToe */;
-			targetProxy = 686B887D1C9E27EE00234EC6 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		A6BD1BF51C9B3AE000EC899A /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A6BD1BF61C9B3AE000EC899A /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		A6BD1BFA1C9B3AE000EC899A /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A6BD1BFB1C9B3AE000EC899A /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
-
-/* Begin XCBuildConfiguration section */
-		686B88801C9E27EE00234EC6 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = TicTacToeTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.idrisr.TicTacToeTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TicTacToe.app/TicTacToe";
-			};
-			name = Debug;
-		};
-		686B88811C9E27EE00234EC6 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = TicTacToeTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.idrisr.TicTacToeTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TicTacToe.app/TicTacToe";
-			};
-			name = Release;
-		};
-		A6BD1BFE1C9B3AE000EC899A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos;
-			};
-			name = Debug;
-		};
-		A6BD1BFF1C9B3AE000EC899A /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				SDKROOT = iphoneos;
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		A6BD1C011C9B3AE000EC899A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				INFOPLIST_FILE = TicTacToe/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "Practice-1.TicTacToe";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-			};
-			name = Debug;
-		};
-		A6BD1C021C9B3AE000EC899A /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				INFOPLIST_FILE = TicTacToe/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "Practice-1.TicTacToe";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-			};
-			name = Release;
-		};
-/* End XCBuildConfiguration section */
-
-/* Begin XCConfigurationList section */
-		686B887F1C9E27EE00234EC6 /* Build configuration list for PBXNativeTarget "TicTacToeTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				686B88801C9E27EE00234EC6 /* Debug */,
-				686B88811C9E27EE00234EC6 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		A6BD1BE41C9B3AE000EC899A /* Build configuration list for PBXProject "TicTacToe" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				A6BD1BFE1C9B3AE000EC899A /* Debug */,
-				A6BD1BFF1C9B3AE000EC899A /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		A6BD1C001C9B3AE000EC899A /* Build configuration list for PBXNativeTarget "TicTacToe" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				A6BD1C011C9B3AE000EC899A /* Debug */,
-				A6BD1C021C9B3AE000EC899A /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-/* End XCConfigurationList section */
-	};
-	rootObject = A6BD1BE11C9B3AE000EC899A /* Project object */;
-}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>archiveVersion</key>
+	<string>1</string>
+	<key>classes</key>
+	<dict/>
+	<key>objectVersion</key>
+	<string>46</string>
+	<key>objects</key>
+	<dict>
+		<key>6803FAA31C9FA124009EC9D6</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>UIColor+CustomColor.h</string>
+			<key>path</key>
+			<string>UIColor+CustomColor.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>6803FAA41C9FA124009EC9D6</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>UIColor+CustomColor.m</string>
+			<key>path</key>
+			<string>UIColor+CustomColor.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>6803FAA51C9FA124009EC9D6</key>
+		<dict>
+			<key>fileRef</key>
+			<string>6803FAA41C9FA124009EC9D6</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>686B88711C9E21E500234EC6</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>TicTacToeBoard.h</string>
+			<key>path</key>
+			<string>TicTacToeBoard.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>686B88721C9E21E500234EC6</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>TicTacToeBoard.m</string>
+			<key>path</key>
+			<string>TicTacToeBoard.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>686B88731C9E21E500234EC6</key>
+		<dict>
+			<key>fileRef</key>
+			<string>686B88721C9E21E500234EC6</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>686B88741C9E27ED00234EC6</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>686B887B1C9E27EE00234EC6</string>
+			</array>
+			<key>isa</key>
+			<string>PBXSourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>686B88751C9E27ED00234EC6</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXFrameworksBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>686B88761C9E27ED00234EC6</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXResourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>686B88771C9E27ED00234EC6</key>
+		<dict>
+			<key>buildConfigurationList</key>
+			<string>686B887F1C9E27EE00234EC6</string>
+			<key>buildPhases</key>
+			<array>
+				<string>686B88741C9E27ED00234EC6</string>
+				<string>686B88751C9E27ED00234EC6</string>
+				<string>686B88761C9E27ED00234EC6</string>
+			</array>
+			<key>buildRules</key>
+			<array/>
+			<key>dependencies</key>
+			<array>
+				<string>686B887E1C9E27EE00234EC6</string>
+			</array>
+			<key>isa</key>
+			<string>PBXNativeTarget</string>
+			<key>name</key>
+			<string>TicTacToeTests</string>
+			<key>productName</key>
+			<string>TicTacToeTests</string>
+			<key>productReference</key>
+			<string>686B88781C9E27ED00234EC6</string>
+			<key>productType</key>
+			<string>com.apple.product-type.bundle.unit-test</string>
+		</dict>
+		<key>686B88781C9E27ED00234EC6</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>wrapper.cfbundle</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>TicTacToeTests.xctest</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>686B88791C9E27EE00234EC6</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>686B887A1C9E27EE00234EC6</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>path</key>
+			<string>TicTacToeTests</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>686B887A1C9E27EE00234EC6</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>TicTacToeTests.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>686B887B1C9E27EE00234EC6</key>
+		<dict>
+			<key>fileRef</key>
+			<string>686B887A1C9E27EE00234EC6</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>686B887C1C9E27EE00234EC6</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.plist.xml</string>
+			<key>name</key>
+			<string>Info.plist</string>
+			<key>path</key>
+			<string>Info.plist</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>686B887D1C9E27EE00234EC6</key>
+		<dict>
+			<key>containerPortal</key>
+			<string>A6BD1BE11C9B3AE000EC899A</string>
+			<key>isa</key>
+			<string>PBXContainerItemProxy</string>
+			<key>proxyType</key>
+			<string>1</string>
+			<key>remoteGlobalIDString</key>
+			<string>A6BD1BE81C9B3AE000EC899A</string>
+			<key>remoteInfo</key>
+			<string>TicTacToe</string>
+		</dict>
+		<key>686B887E1C9E27EE00234EC6</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXTargetDependency</string>
+			<key>target</key>
+			<string>A6BD1BE81C9B3AE000EC899A</string>
+			<key>targetProxy</key>
+			<string>686B887D1C9E27EE00234EC6</string>
+		</dict>
+		<key>686B887F1C9E27EE00234EC6</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>686B88801C9E27EE00234EC6</string>
+				<string>686B88811C9E27EE00234EC6</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
+		<key>686B88801C9E27EE00234EC6</key>
+		<dict>
+			<key>buildSettings</key>
+			<dict>
+				<key>BUNDLE_LOADER</key>
+				<string>$(TEST_HOST)</string>
+				<key>INFOPLIST_FILE</key>
+				<string>TicTacToeTests/Info.plist</string>
+				<key>LD_RUNPATH_SEARCH_PATHS</key>
+				<string>$(inherited) @executable_path/Frameworks @loader_path/Frameworks</string>
+				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
+				<string>com.idrisr.TicTacToeTests</string>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME)</string>
+				<key>TEST_HOST</key>
+				<string>$(BUILT_PRODUCTS_DIR)/TicTacToe.app/TicTacToe</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Debug</string>
+		</dict>
+		<key>686B88811C9E27EE00234EC6</key>
+		<dict>
+			<key>buildSettings</key>
+			<dict>
+				<key>BUNDLE_LOADER</key>
+				<string>$(TEST_HOST)</string>
+				<key>INFOPLIST_FILE</key>
+				<string>TicTacToeTests/Info.plist</string>
+				<key>LD_RUNPATH_SEARCH_PATHS</key>
+				<string>$(inherited) @executable_path/Frameworks @loader_path/Frameworks</string>
+				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
+				<string>com.idrisr.TicTacToeTests</string>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME)</string>
+				<key>TEST_HOST</key>
+				<string>$(BUILT_PRODUCTS_DIR)/TicTacToe.app/TicTacToe</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Release</string>
+		</dict>
+		<key>689276CE1CAF523900E3B009</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>689276D71CAF523900E3B009</string>
+				<string>689276EF1CAF53F100E3B009</string>
+				<string>689276D51CAF523900E3B009</string>
+			</array>
+			<key>isa</key>
+			<string>PBXSourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>689276CF1CAF523900E3B009</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXFrameworksBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>689276D01CAF523900E3B009</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>689276DF1CAF523900E3B009</string>
+				<string>689276DC1CAF523900E3B009</string>
+				<string>689276DA1CAF523900E3B009</string>
+			</array>
+			<key>isa</key>
+			<string>PBXResourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>689276D11CAF523900E3B009</key>
+		<dict>
+			<key>buildConfigurationList</key>
+			<string>689276E31CAF523900E3B009</string>
+			<key>buildPhases</key>
+			<array>
+				<string>689276CE1CAF523900E3B009</string>
+				<string>689276CF1CAF523900E3B009</string>
+				<string>689276D01CAF523900E3B009</string>
+			</array>
+			<key>buildRules</key>
+			<array/>
+			<key>dependencies</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXNativeTarget</string>
+			<key>name</key>
+			<string>TicTacToeSwift</string>
+			<key>productName</key>
+			<string>TicTacToeSwift</string>
+			<key>productReference</key>
+			<string>689276D21CAF523900E3B009</string>
+			<key>productType</key>
+			<string>com.apple.product-type.application</string>
+		</dict>
+		<key>689276D21CAF523900E3B009</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>wrapper.application</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>TicTacToeSwift.app</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>689276D41CAF523900E3B009</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>name</key>
+			<string>AppDelegate.swift</string>
+			<key>path</key>
+			<string>AppDelegate.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>689276D51CAF523900E3B009</key>
+		<dict>
+			<key>fileRef</key>
+			<string>689276D41CAF523900E3B009</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>689276D61CAF523900E3B009</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>name</key>
+			<string>GameViewController.swift</string>
+			<key>path</key>
+			<string>GameViewController.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>689276D71CAF523900E3B009</key>
+		<dict>
+			<key>fileRef</key>
+			<string>689276D61CAF523900E3B009</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>689276D81CAF523900E3B009</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>689276D91CAF523900E3B009</string>
+			</array>
+			<key>isa</key>
+			<string>PBXVariantGroup</string>
+			<key>name</key>
+			<string>Main.storyboard</string>
+			<key>path</key>
+			<string>.</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>689276D91CAF523900E3B009</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>file.storyboard</string>
+			<key>name</key>
+			<string>Base</string>
+			<key>path</key>
+			<string>Base.lproj/Main.storyboard</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>689276DA1CAF523900E3B009</key>
+		<dict>
+			<key>fileRef</key>
+			<string>689276D81CAF523900E3B009</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>689276DB1CAF523900E3B009</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>folder.assetcatalog</string>
+			<key>name</key>
+			<string>Assets.xcassets</string>
+			<key>path</key>
+			<string>Assets.xcassets</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>689276DC1CAF523900E3B009</key>
+		<dict>
+			<key>fileRef</key>
+			<string>689276DB1CAF523900E3B009</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>689276DD1CAF523900E3B009</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>689276DE1CAF523900E3B009</string>
+			</array>
+			<key>isa</key>
+			<string>PBXVariantGroup</string>
+			<key>name</key>
+			<string>LaunchScreen.storyboard</string>
+			<key>path</key>
+			<string>.</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>689276DE1CAF523900E3B009</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>file.storyboard</string>
+			<key>name</key>
+			<string>Base</string>
+			<key>path</key>
+			<string>Base.lproj/LaunchScreen.storyboard</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>689276DF1CAF523900E3B009</key>
+		<dict>
+			<key>fileRef</key>
+			<string>689276DD1CAF523900E3B009</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>689276E01CAF523900E3B009</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.plist.xml</string>
+			<key>name</key>
+			<string>Info.plist</string>
+			<key>path</key>
+			<string>Info.plist</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>689276E11CAF523900E3B009</key>
+		<dict>
+			<key>buildSettings</key>
+			<dict>
+				<key>ASSETCATALOG_COMPILER_APPICON_NAME</key>
+				<string>AppIcon</string>
+				<key>CLANG_ANALYZER_NONNULL</key>
+				<string>YES</string>
+				<key>INFOPLIST_FILE</key>
+				<string>TicTacToeSwift/Info.plist</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>9.3</string>
+				<key>LD_RUNPATH_SEARCH_PATHS</key>
+				<string>$(inherited) @executable_path/Frameworks</string>
+				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
+				<string>com.idrisr.TicTacToeSwift</string>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME)</string>
+				<key>SWIFT_OPTIMIZATION_LEVEL</key>
+				<string>-Onone</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Debug</string>
+		</dict>
+		<key>689276E21CAF523900E3B009</key>
+		<dict>
+			<key>buildSettings</key>
+			<dict>
+				<key>ASSETCATALOG_COMPILER_APPICON_NAME</key>
+				<string>AppIcon</string>
+				<key>CLANG_ANALYZER_NONNULL</key>
+				<string>YES</string>
+				<key>INFOPLIST_FILE</key>
+				<string>TicTacToeSwift/Info.plist</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>9.3</string>
+				<key>LD_RUNPATH_SEARCH_PATHS</key>
+				<string>$(inherited) @executable_path/Frameworks</string>
+				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
+				<string>com.idrisr.TicTacToeSwift</string>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME)</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Release</string>
+		</dict>
+		<key>689276E31CAF523900E3B009</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>689276E11CAF523900E3B009</string>
+				<string>689276E21CAF523900E3B009</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
+		<key>689276E51CAF524F00E3B009</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>689276EC1CAF52E300E3B009</string>
+				<string>689276EA1CAF52DB00E3B009</string>
+				<string>689276ED1CAF52EA00E3B009</string>
+				<string>689276EB1CAF52E000E3B009</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>swift</string>
+			<key>path</key>
+			<string>swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>689276E61CAF525800E3B009</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>686B88711C9E21E500234EC6</string>
+				<string>686B88721C9E21E500234EC6</string>
+				<string>689276EE1CAF53B900E3B009</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>shared</string>
+			<key>path</key>
+			<string>shared</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>689276E71CAF526200E3B009</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>6803FAA31C9FA124009EC9D6</string>
+				<string>6803FAA41C9FA124009EC9D6</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>model</string>
+			<key>path</key>
+			<string>model</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>689276E81CAF526600E3B009</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>A6BD1BF51C9B3AE000EC899A</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>view</string>
+			<key>path</key>
+			<string>view</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>689276E91CAF526A00E3B009</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>A6BD1BF21C9B3AE000EC899A</string>
+				<string>A6BD1BF31C9B3AE000EC899A</string>
+				<string>68DB8DCF1C9F4012003F58D6</string>
+				<string>68DB8DD01C9F4012003F58D6</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>controller</string>
+			<key>path</key>
+			<string>controller</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>689276EA1CAF52DB00E3B009</key>
+		<dict>
+			<key>children</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>model</string>
+			<key>path</key>
+			<string>model</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>689276EB1CAF52E000E3B009</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>689276DD1CAF523900E3B009</string>
+				<string>689276D81CAF523900E3B009</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>view</string>
+			<key>path</key>
+			<string>view</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>689276EC1CAF52E300E3B009</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>689276D61CAF523900E3B009</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>controller</string>
+			<key>path</key>
+			<string>controller</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>689276ED1CAF52EA00E3B009</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>689276D41CAF523900E3B009</string>
+				<string>689276E01CAF523900E3B009</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>support</string>
+			<key>path</key>
+			<string>support</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>689276EE1CAF53B900E3B009</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>TicTacToeSwift-Bridging-Header.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>689276EF1CAF53F100E3B009</key>
+		<dict>
+			<key>fileRef</key>
+			<string>686B88721C9E21E500234EC6</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>68DB8DCF1C9F4012003F58D6</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>WebViewController.h</string>
+			<key>path</key>
+			<string>WebViewController.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>68DB8DD01C9F4012003F58D6</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>WebViewController.m</string>
+			<key>path</key>
+			<string>WebViewController.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>68DB8DD11C9F4012003F58D6</key>
+		<dict>
+			<key>fileRef</key>
+			<string>68DB8DD01C9F4012003F58D6</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>A6BD1BE01C9B3AE000EC899A</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>A6BD1BEA1C9B3AE000EC899A</string>
+				<string>686B88791C9E27EE00234EC6</string>
+				<string>A6BD1BEB1C9B3AE000EC899A</string>
+				<string>689276E61CAF525800E3B009</string>
+				<string>689276E51CAF524F00E3B009</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>A6BD1BE11C9B3AE000EC899A</key>
+		<dict>
+			<key>attributes</key>
+			<dict>
+				<key>KnownAssetTags</key>
+				<array>
+					<string>10</string>
+				</array>
+				<key>LastSwiftUpdateCheck</key>
+				<string>0730</string>
+				<key>LastUpgradeCheck</key>
+				<string>0720</string>
+				<key>ORGANIZATIONNAME</key>
+				<string>Brandon Gress</string>
+				<key>TargetAttributes</key>
+				<dict>
+					<key>686B88771C9E27ED00234EC6</key>
+					<dict>
+						<key>CreatedOnToolsVersion</key>
+						<string>7.2.1</string>
+						<key>TestTargetID</key>
+						<string>A6BD1BE81C9B3AE000EC899A</string>
+					</dict>
+					<key>689276D11CAF523900E3B009</key>
+					<dict>
+						<key>CreatedOnToolsVersion</key>
+						<string>7.3</string>
+					</dict>
+					<key>A6BD1BE81C9B3AE000EC899A</key>
+					<dict>
+						<key>CreatedOnToolsVersion</key>
+						<string>7.2.1</string>
+						<key>DevelopmentTeam</key>
+						<string>66B8D6X2BX</string>
+					</dict>
+				</dict>
+			</dict>
+			<key>buildConfigurationList</key>
+			<string>A6BD1BE41C9B3AE000EC899A</string>
+			<key>compatibilityVersion</key>
+			<string>Xcode 3.2</string>
+			<key>developmentRegion</key>
+			<string>English</string>
+			<key>hasScannedForEncodings</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXProject</string>
+			<key>knownRegions</key>
+			<array>
+				<string>en</string>
+				<string>Base</string>
+			</array>
+			<key>mainGroup</key>
+			<string>A6BD1BE01C9B3AE000EC899A</string>
+			<key>productRefGroup</key>
+			<string>A6BD1BEA1C9B3AE000EC899A</string>
+			<key>projectDirPath</key>
+			<string></string>
+			<key>projectReferences</key>
+			<array/>
+			<key>projectRoot</key>
+			<string></string>
+			<key>targets</key>
+			<array>
+				<string>A6BD1BE81C9B3AE000EC899A</string>
+				<string>686B88771C9E27ED00234EC6</string>
+				<string>689276D11CAF523900E3B009</string>
+			</array>
+		</dict>
+		<key>A6BD1BE41C9B3AE000EC899A</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>A6BD1BFE1C9B3AE000EC899A</string>
+				<string>A6BD1BFF1C9B3AE000EC899A</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
+		<key>A6BD1BE51C9B3AE000EC899A</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>686B88731C9E21E500234EC6</string>
+				<string>68DB8DD11C9F4012003F58D6</string>
+				<string>A6BD1BF41C9B3AE000EC899A</string>
+				<string>A6BD1BF11C9B3AE000EC899A</string>
+				<string>6803FAA51C9FA124009EC9D6</string>
+				<string>A6BD1BEE1C9B3AE000EC899A</string>
+			</array>
+			<key>isa</key>
+			<string>PBXSourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>A6BD1BE61C9B3AE000EC899A</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXFrameworksBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>A6BD1BE71C9B3AE000EC899A</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>A6BD1BFC1C9B3AE000EC899A</string>
+				<string>A6BD1BF91C9B3AE000EC899A</string>
+				<string>A6BD1BF71C9B3AE000EC899A</string>
+			</array>
+			<key>isa</key>
+			<string>PBXResourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>A6BD1BE81C9B3AE000EC899A</key>
+		<dict>
+			<key>buildConfigurationList</key>
+			<string>A6BD1C001C9B3AE000EC899A</string>
+			<key>buildPhases</key>
+			<array>
+				<string>A6BD1BE51C9B3AE000EC899A</string>
+				<string>A6BD1BE61C9B3AE000EC899A</string>
+				<string>A6BD1BE71C9B3AE000EC899A</string>
+			</array>
+			<key>buildRules</key>
+			<array/>
+			<key>dependencies</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXNativeTarget</string>
+			<key>name</key>
+			<string>TicTacToe</string>
+			<key>productName</key>
+			<string>TicTacToe</string>
+			<key>productReference</key>
+			<string>A6BD1BE91C9B3AE000EC899A</string>
+			<key>productType</key>
+			<string>com.apple.product-type.application</string>
+		</dict>
+		<key>A6BD1BE91C9B3AE000EC899A</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>wrapper.application</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>TicTacToe.app</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>A6BD1BEA1C9B3AE000EC899A</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>A6BD1BE91C9B3AE000EC899A</string>
+				<string>686B88781C9E27ED00234EC6</string>
+				<string>689276D21CAF523900E3B009</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Products</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>A6BD1BEB1C9B3AE000EC899A</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>689276E91CAF526A00E3B009</string>
+				<string>689276E71CAF526200E3B009</string>
+				<string>A6BD1BEC1C9B3AE000EC899A</string>
+				<string>689276E81CAF526600E3B009</string>
+				<string>A6BD1BF81C9B3AE000EC899A</string>
+				<string>A6BD1BFD1C9B3AE000EC899A</string>
+				<string>A6BD1BFA1C9B3AE000EC899A</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>objc</string>
+			<key>path</key>
+			<string>objc</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>A6BD1BEC1C9B3AE000EC899A</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>A6BD1BEF1C9B3AE000EC899A</string>
+				<string>A6BD1BF01C9B3AE000EC899A</string>
+				<string>689276DB1CAF523900E3B009</string>
+				<string>686B887C1C9E27EE00234EC6</string>
+				<string>A6BD1BED1C9B3AE000EC899A</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>support</string>
+			<key>path</key>
+			<string>support</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>A6BD1BED1C9B3AE000EC899A</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>main.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>A6BD1BEE1C9B3AE000EC899A</key>
+		<dict>
+			<key>fileRef</key>
+			<string>A6BD1BED1C9B3AE000EC899A</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>A6BD1BEF1C9B3AE000EC899A</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>AppDelegate.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>A6BD1BF01C9B3AE000EC899A</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>AppDelegate.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>A6BD1BF11C9B3AE000EC899A</key>
+		<dict>
+			<key>fileRef</key>
+			<string>A6BD1BF01C9B3AE000EC899A</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>A6BD1BF21C9B3AE000EC899A</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>GameViewController.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>A6BD1BF31C9B3AE000EC899A</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>GameViewController.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>A6BD1BF41C9B3AE000EC899A</key>
+		<dict>
+			<key>fileRef</key>
+			<string>A6BD1BF31C9B3AE000EC899A</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>A6BD1BF51C9B3AE000EC899A</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>A6BD1BF61C9B3AE000EC899A</string>
+			</array>
+			<key>isa</key>
+			<string>PBXVariantGroup</string>
+			<key>name</key>
+			<string>Main.storyboard</string>
+			<key>path</key>
+			<string>.</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>A6BD1BF61C9B3AE000EC899A</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>file.storyboard</string>
+			<key>name</key>
+			<string>Base</string>
+			<key>path</key>
+			<string>Base.lproj/Main.storyboard</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>A6BD1BF71C9B3AE000EC899A</key>
+		<dict>
+			<key>fileRef</key>
+			<string>A6BD1BF51C9B3AE000EC899A</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>A6BD1BF81C9B3AE000EC899A</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>folder.assetcatalog</string>
+			<key>path</key>
+			<string>Assets.xcassets</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>A6BD1BF91C9B3AE000EC899A</key>
+		<dict>
+			<key>fileRef</key>
+			<string>A6BD1BF81C9B3AE000EC899A</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>A6BD1BFA1C9B3AE000EC899A</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>A6BD1BFB1C9B3AE000EC899A</string>
+			</array>
+			<key>isa</key>
+			<string>PBXVariantGroup</string>
+			<key>name</key>
+			<string>LaunchScreen.storyboard</string>
+			<key>path</key>
+			<string>.</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>A6BD1BFB1C9B3AE000EC899A</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>file.storyboard</string>
+			<key>name</key>
+			<string>Base</string>
+			<key>path</key>
+			<string>Base.lproj/LaunchScreen.storyboard</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>A6BD1BFC1C9B3AE000EC899A</key>
+		<dict>
+			<key>fileRef</key>
+			<string>A6BD1BFA1C9B3AE000EC899A</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>A6BD1BFD1C9B3AE000EC899A</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.plist.xml</string>
+			<key>path</key>
+			<string>Info.plist</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>A6BD1BFE1C9B3AE000EC899A</key>
+		<dict>
+			<key>buildSettings</key>
+			<dict>
+				<key>ALWAYS_SEARCH_USER_PATHS</key>
+				<string>NO</string>
+				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
+				<string>gnu++0x</string>
+				<key>CLANG_CXX_LIBRARY</key>
+				<string>libc++</string>
+				<key>CLANG_ENABLE_MODULES</key>
+				<string>YES</string>
+				<key>CLANG_ENABLE_OBJC_ARC</key>
+				<string>YES</string>
+				<key>CLANG_WARN_BOOL_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_CONSTANT_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_DIRECT_OBJC_ISA_USAGE</key>
+				<string>YES_ERROR</string>
+				<key>CLANG_WARN_EMPTY_BODY</key>
+				<string>YES</string>
+				<key>CLANG_WARN_ENUM_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_INT_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_OBJC_ROOT_CLASS</key>
+				<string>YES_ERROR</string>
+				<key>CLANG_WARN_UNREACHABLE_CODE</key>
+				<string>YES</string>
+				<key>CLANG_WARN__DUPLICATE_METHOD_MATCH</key>
+				<string>YES</string>
+				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
+				<string>iPhone Developer</string>
+				<key>COPY_PHASE_STRIP</key>
+				<string>NO</string>
+				<key>DEBUG_INFORMATION_FORMAT</key>
+				<string>dwarf</string>
+				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
+				<string>YES</string>
+				<key>ENABLE_TESTABILITY</key>
+				<string>YES</string>
+				<key>GCC_C_LANGUAGE_STANDARD</key>
+				<string>gnu99</string>
+				<key>GCC_DYNAMIC_NO_PIC</key>
+				<string>NO</string>
+				<key>GCC_NO_COMMON_BLOCKS</key>
+				<string>YES</string>
+				<key>GCC_OPTIMIZATION_LEVEL</key>
+				<string>0</string>
+				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
+				<array>
+					<string>DEBUG=1</string>
+					<string>$(inherited)</string>
+				</array>
+				<key>GCC_WARN_64_TO_32_BIT_CONVERSION</key>
+				<string>YES</string>
+				<key>GCC_WARN_ABOUT_RETURN_TYPE</key>
+				<string>YES_ERROR</string>
+				<key>GCC_WARN_UNDECLARED_SELECTOR</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNINITIALIZED_AUTOS</key>
+				<string>YES_AGGRESSIVE</string>
+				<key>GCC_WARN_UNUSED_FUNCTION</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNUSED_VARIABLE</key>
+				<string>YES</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>9.2</string>
+				<key>MTL_ENABLE_DEBUG_INFO</key>
+				<string>YES</string>
+				<key>ONLY_ACTIVE_ARCH</key>
+				<string>YES</string>
+				<key>SDKROOT</key>
+				<string>iphoneos</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Debug</string>
+		</dict>
+		<key>A6BD1BFF1C9B3AE000EC899A</key>
+		<dict>
+			<key>buildSettings</key>
+			<dict>
+				<key>ALWAYS_SEARCH_USER_PATHS</key>
+				<string>NO</string>
+				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
+				<string>gnu++0x</string>
+				<key>CLANG_CXX_LIBRARY</key>
+				<string>libc++</string>
+				<key>CLANG_ENABLE_MODULES</key>
+				<string>YES</string>
+				<key>CLANG_ENABLE_OBJC_ARC</key>
+				<string>YES</string>
+				<key>CLANG_WARN_BOOL_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_CONSTANT_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_DIRECT_OBJC_ISA_USAGE</key>
+				<string>YES_ERROR</string>
+				<key>CLANG_WARN_EMPTY_BODY</key>
+				<string>YES</string>
+				<key>CLANG_WARN_ENUM_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_INT_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_OBJC_ROOT_CLASS</key>
+				<string>YES_ERROR</string>
+				<key>CLANG_WARN_UNREACHABLE_CODE</key>
+				<string>YES</string>
+				<key>CLANG_WARN__DUPLICATE_METHOD_MATCH</key>
+				<string>YES</string>
+				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
+				<string>iPhone Developer</string>
+				<key>COPY_PHASE_STRIP</key>
+				<string>NO</string>
+				<key>DEBUG_INFORMATION_FORMAT</key>
+				<string>dwarf-with-dsym</string>
+				<key>ENABLE_NS_ASSERTIONS</key>
+				<string>NO</string>
+				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
+				<string>YES</string>
+				<key>GCC_C_LANGUAGE_STANDARD</key>
+				<string>gnu99</string>
+				<key>GCC_NO_COMMON_BLOCKS</key>
+				<string>YES</string>
+				<key>GCC_WARN_64_TO_32_BIT_CONVERSION</key>
+				<string>YES</string>
+				<key>GCC_WARN_ABOUT_RETURN_TYPE</key>
+				<string>YES_ERROR</string>
+				<key>GCC_WARN_UNDECLARED_SELECTOR</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNINITIALIZED_AUTOS</key>
+				<string>YES_AGGRESSIVE</string>
+				<key>GCC_WARN_UNUSED_FUNCTION</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNUSED_VARIABLE</key>
+				<string>YES</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>9.2</string>
+				<key>MTL_ENABLE_DEBUG_INFO</key>
+				<string>NO</string>
+				<key>SDKROOT</key>
+				<string>iphoneos</string>
+				<key>VALIDATE_PRODUCT</key>
+				<string>YES</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Release</string>
+		</dict>
+		<key>A6BD1C001C9B3AE000EC899A</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>A6BD1C011C9B3AE000EC899A</string>
+				<string>A6BD1C021C9B3AE000EC899A</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
+		<key>A6BD1C011C9B3AE000EC899A</key>
+		<dict>
+			<key>buildSettings</key>
+			<dict>
+				<key>ASSETCATALOG_COMPILER_APPICON_NAME</key>
+				<string>AppIcon</string>
+				<key>CODE_SIGN_IDENTITY</key>
+				<string>iPhone Developer</string>
+				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
+				<string>iPhone Developer</string>
+				<key>INFOPLIST_FILE</key>
+				<string>objc/Info.plist</string>
+				<key>LD_RUNPATH_SEARCH_PATHS</key>
+				<string>$(inherited) @executable_path/Frameworks</string>
+				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
+				<string>Practice-1.TicTacToe</string>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME)</string>
+				<key>PROVISIONING_PROFILE</key>
+				<string></string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Debug</string>
+		</dict>
+		<key>A6BD1C021C9B3AE000EC899A</key>
+		<dict>
+			<key>buildSettings</key>
+			<dict>
+				<key>ASSETCATALOG_COMPILER_APPICON_NAME</key>
+				<string>AppIcon</string>
+				<key>CODE_SIGN_IDENTITY</key>
+				<string>iPhone Developer</string>
+				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
+				<string>iPhone Developer</string>
+				<key>INFOPLIST_FILE</key>
+				<string>objc/Info.plist</string>
+				<key>LD_RUNPATH_SEARCH_PATHS</key>
+				<string>$(inherited) @executable_path/Frameworks</string>
+				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
+				<string>Practice-1.TicTacToe</string>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME)</string>
+				<key>PROVISIONING_PROFILE</key>
+				<string></string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Release</string>
+		</dict>
+	</dict>
+	<key>rootObject</key>
+	<string>A6BD1BE11C9B3AE000EC899A</string>
+</dict>
+</plist>
