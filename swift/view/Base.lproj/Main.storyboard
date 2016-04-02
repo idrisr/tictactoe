@@ -17,6 +17,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="swift" translatesAutoresizingMaskIntoConstraints="NO" id="lod-oD-soC">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="151" y="450" width="98" height="91"/>
+                                </variation>
+                            </imageView>
                             <button opaque="NO" tag="20" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rP9-b2-YEk">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                 <variation key="widthClass=compact" fixedFrame="YES">
@@ -132,6 +138,7 @@
                         </accessibility>
                         <variation key="default">
                             <mask key="subviews">
+                                <exclude reference="lod-oD-soC"/>
                                 <exclude reference="rP9-b2-YEk"/>
                                 <exclude reference="MWM-t9-eng"/>
                                 <exclude reference="jaj-j9-9tL"/>
@@ -148,6 +155,7 @@
                         </variation>
                         <variation key="widthClass=compact">
                             <mask key="subviews">
+                                <include reference="lod-oD-soC"/>
                                 <include reference="rP9-b2-YEk"/>
                                 <include reference="MWM-t9-eng"/>
                                 <include reference="jaj-j9-9tL"/>
@@ -202,4 +210,7 @@
             <point key="canvasLocation" x="244.5" y="306"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="swift" width="256" height="256"/>
+    </resources>
 </document>

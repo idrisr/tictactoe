@@ -17,6 +17,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="objc" translatesAutoresizingMaskIntoConstraints="NO" id="WZh-Xt-PMU">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="134" y="460" width="132" height="104"/>
+                                </variation>
+                            </imageView>
                             <button opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UT4-02-Gqn">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                 <variation key="widthClass=compact" fixedFrame="YES">
@@ -135,6 +142,7 @@
                         </accessibility>
                         <variation key="default">
                             <mask key="subviews">
+                                <exclude reference="WZh-Xt-PMU"/>
                                 <exclude reference="UT4-02-Gqn"/>
                                 <exclude reference="rP9-b2-YEk"/>
                                 <exclude reference="MWM-t9-eng"/>
@@ -151,6 +159,7 @@
                         </variation>
                         <variation key="widthClass=compact">
                             <mask key="subviews">
+                                <include reference="WZh-Xt-PMU"/>
                                 <include reference="UT4-02-Gqn"/>
                                 <include reference="rP9-b2-YEk"/>
                                 <include reference="MWM-t9-eng"/>
@@ -272,4 +281,7 @@
             <point key="canvasLocation" x="244.5" y="306"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="objc" width="280" height="171"/>
+    </resources>
 </document>
