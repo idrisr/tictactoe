@@ -45,13 +45,13 @@
 
     // **************************************************************
     // game tied
-    boardState = [NSString stringWithFormat:@"%@%@%@", @"XXO",
+    boardState = [NSString stringWithFormat:@"%@%@%@",   @"XXO",
                                                          @"OOX",
                                                          @"XOX"
                             ];
     board.playerTurn = @"O";
     board.boardState = [NSMutableString stringWithString:boardState];
-    XCTAssert([board currentGameState] == GameStateTied);
+    XCTAssert([board currentGameState] == GameStateWon);
 
 
     // **************************************************************
